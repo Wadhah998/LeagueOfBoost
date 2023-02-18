@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+  <head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <title>{% block titile %}LeagueOfBoost {% endblock%} </title>
-     {% block css %}
+  <title>   {% block title %}Cyborg - Awesome HTML5 Template {% endblock%} </title>
+
+    {% block css %}
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -20,50 +21,38 @@
     <link rel="stylesheet" href="{{ asset('css/owl.css')}}">
     <link rel="stylesheet" href="{{ asset('css/animate.css')}}">
     <link rel="stylesheet"href="{{ asset('https://unpkg.com/swiper@7/swiper-bundle.min.css')}}"/>
-
     {% endblock %}
-    <!--
+<!--
 
-    TemplateMo 579 Cyborg Gaming
+TemplateMo 579 Cyborg Gaming
 
-    https://templatemo.com/tm-579-cyborg-gaming
+https://templatemo.com/tm-579-cyborg-gaming
 
-    -->
-</head>
+-->
+  </head>
 
 <body>
-{%  block body %}
-<!-- ***** Preloader Start ***** -->
-<div id="js-preloader" class="js-preloader">
-    <div class="preloader-inner">
-        <span class="dot"></span>
-        <div class="dots">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-</div> {% endblock %}
-<!-- ***** Preloader End ***** -->
 
-<!-- ***** Header Area Start ***** -->
-<header class="header-area header-sticky">
+ 
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
     <div class="container">
         <div class="row">
             <div class="col-12">
+
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="index.html" class="logo">
-
-                        <h4 class="text-primary"><i style="margin-left: 28px" ></i>   LeagueOfBoost</h4>
+                        <img src="assets/images/logo.png" alt="">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Search End ***** -->
                     <div class="search-input">
-                        <form id="search" action="#">
-                            <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
-                            <i class="fa fa-search"></i>
-                        </form>
+                      <form id="search" action="#">
+                        <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
+                        <i class="fa fa-search"></i>
+                      </form>
                     </div>
                     <!-- ***** Search End ***** -->
                     <!-- ***** Menu Start ***** -->
@@ -71,9 +60,9 @@
                         <li><a href="index.html" class="active">Home</a></li>
                         <li><a href="browse.html">Browse</a></li>
                         <li><a href="details.html">Details</a></li>
-                        <li><a href="streams.html">Streams</a></li>
-                        <li><a href="profile.html">Profile <img src="images/profile-header.jpg" alt=""></a></li>
-                    </ul>
+                        <li><a href="streams.html">Mini Games</a></li>
+                        <li><a href="profile.html">Profile <img src="assets/images/profile-header.jpg" alt=""></a></li>
+                    </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>
                     </a>
@@ -82,25 +71,42 @@
             </div>
         </div>
     </div>
-</header>
-<!-- ***** Header Area End ***** -->
+    
+  </header>
+  <!-- ***** Header Area End ***** -->
+
+  <section>
+{% block body %}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-content">
 
 
+        </div>
+                </div>
 
+        </div>
+    </div>
+   
+  {% endblock %}
+  </section>
+   
 
+    {% block js %}
 
-<!-- Scripts -->
-<!-- Bootstrap core JavaScript -->
-{% block js  %}
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
-<script src="/js/isotope.min.js"></script>
-<script src="/js/owl-carousel.js"></script>
-<script src="/js/tabs.js"></script>
-<script src="/js/popup.js"></script>
-<script src="/js/custom.js"></script>
-{% endblock %}
+  <script src="assets/js/isotope.min.js"></script>
+  <script src="assets/js/owl-carousel.js"></script>
+  <script src="assets/js/tabs.js"></script>
+  <script src="assets/js/popup.js"></script>
+  <script src="assets/js/custom.js"></script>
+
+{% endblock%}
 
 </body>
 
