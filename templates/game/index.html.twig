@@ -1,38 +1,45 @@
 {% extends 'frontOffice.html.twig' %}
+{% block body %}
 
-{% block body %} 
- 
           <div class="most-popular">
             <div class="row">
               <div class="col-lg-12">
                 <div class="heading-section">
                   <h4>WIN MONEY Right Now ! </h4>
                 </div>
+
+
+                {% for game in games %}
+
                 <div class="row">
                   <div class="col-lg-3 col-sm-6">
                     <div class="item">
                       <img src="assets/images/popular-01.jpg" alt="">
-                      <h4>Game 1<br><span>5v5 draft pick</span></h4>
+                      <h4>{{ game.title }}<br><span>{{ game.description }}</span></h4>
                       <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
+                        <li><i class="fa fa-star"></i> {{ game.price }}</li>
+                        <li><i class="fa fa-download"></i> {{ game.date ? game.date|date('Y-m-d H:i:s') : '' }}</li>
                       </ul>
-                      
-                    </div>
-                    <div class="col-lg-12">
-                    <div class="main-button">
-                      <a href="browse.html">Participate Now</a>
-                    </div>
-                  </div>
-                  </div>
 
-                  
+                      <div class="col-lg-12">
+                        <div class="main-button">
+                        <a href="browse.html">Participate Now</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                
+            {% endfor %}
+
               </div>
             </div>
           </div>
-          <!-- ***** Most Popular End ***** -->
-
-
 
 {% endblock %}
+
+
+
+
+
+

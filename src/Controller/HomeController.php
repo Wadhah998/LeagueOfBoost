@@ -15,13 +15,4 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
-
-    #Page Tournois
-    #[Route('/tournois', name: 'tournois')]
-    public function tournois()
-    {
-        return $this->render('home/tournois.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
-    }
 }
