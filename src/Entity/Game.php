@@ -29,6 +29,8 @@ class Game
     private ?\DateTimeInterface $date = null;
 
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Team::class)]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
+    
     private Collection $team;
 
     public function __construct()
@@ -118,4 +120,6 @@ class Game
 
         return $this;
     }
+    
+   
 }
