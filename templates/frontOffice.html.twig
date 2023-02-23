@@ -48,7 +48,7 @@ https://templatemo.com/tm-577-liberty-market
                     <ul class="nav">
                         <li><a href="index.html" class="active">Home</a></li>
                         <li><a href="explore.html">Coaching</a></li>
-                        <li><a href="details.html">Boosting</a></li>
+                        <li><a href="{{path('app_booster_index')}}">Boosting</a></li>
                         <li><a href="{{path('app_game_index')}}">League Of Games</a></li>
                         {% if app.user %}
                             <li><a href="{{ path('app_user_show', {'id': app.user.id}) }}">profile</a></li>
