@@ -8,16 +8,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
     {% block css %}
     <!-- Bootstrap core CSS -->
-    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="{{asset('css/fontawesome.css')}}">
-    <link rel="stylesheet" href="{{asset('css/templatemo-liberty-market.css')}}">
-    <link rel="stylesheet" href="{{asset('css/owl.css')}}">
-    <link rel="stylesheet" href="{{asset('css/animate.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/fontawesome.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/templatemo-liberty-market.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/owl.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/animate.css')}}">
     <link rel="stylesheet"href="{{asset('https://unpkg.com/swiper@7/swiper-bundle.min.css')}}"/>
 
     {% endblock %}
@@ -32,7 +33,6 @@ https://templatemo.com/tm-577-liberty-market
 
 <body>
 
-
   <!-- ***** Header Area Start ***** -->
   <header class="header-area header-sticky">
     <div class="container">
@@ -41,7 +41,7 @@ https://templatemo.com/tm-577-liberty-market
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="index.html" class="logo">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo">
+                        <img src="../../assets/images/logo.png" alt="">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
@@ -49,8 +49,13 @@ https://templatemo.com/tm-577-liberty-market
                         <li><a href="index.html" class="active">Home</a></li>
                         <li><a href="explore.html">Coaching</a></li>
                         <li><a href="details.html">Boosting</a></li>
-                        <li><a>League Of Games</a></li>
-                        <li><a href="create.html">Join Us</a></li>
+                        <li><a href="{{path('app_game_index')}}">League Of Games</a></li>
+                        {% if app.user %}
+                            <li><a href="{{ path('app_user_edit', {'id': app.user.id}) }}.html">profile</a></li>
+                            <li><a href="{{ path('app_logout') }}">logout</a></li>
+                        {% else %}
+                        <li><a href="{{ path('app_login') }}">Join Us</a></li>
+                        {% endif %}
                     </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -85,11 +90,10 @@ https://templatemo.com/tm-577-liberty-market
         <div class="col-lg-5 offset-lg-1">
           <div class="owl-banner owl-carousel">
             <div class="item">
-              <img src="{{ asset('images/banner-01.png') }}" alt="Banner">
-
+              <img src="../../assets/images/banner-01.png" alt="">
             </div>
             <div class="item">
-              <img src="{{ asset('images/banner-02.png') }}" alt="Banner">
+              <img src="../../assets/images/banner-02.png" alt="">
             </div>
           </div>
         </div>
@@ -106,8 +110,6 @@ https://templatemo.com/tm-577-liberty-market
        
   </div>
 
-  
-
   <footer>
     <div class="container">
       <div class="row">
@@ -123,17 +125,15 @@ https://templatemo.com/tm-577-liberty-market
   {% block js %}
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
-  <script src="{{ asset('jquery.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+  <script src="../../vendor/jquery/jquery.min.js"></script>
+  <script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
 
-<script src="{{ asset('js/isotope.min.js') }}"></script>
-<script src="{{ asset('js/owl-carousel.js') }}"></script>
+  <script src="../../assets/js/isotope.min.js"></script>
+  <script src="../../assets/js/owl-carousel.js"></script>
 
-<script src="{{ asset('js/tabs.js') }}"></script>
-<script src="{{ asset('js/popup.js') }}"></script>
-<script src="{{ asset('js/custom.js') }}"></script>
-
-<script src="{{ asset('js/main.js') }}"></script>
+  <script src="../../assets/js/tabs.js"></script>
+  <script src="../../assets/js/popup.js"></script>
+  <script src="../../assets/js/custom.js"></script>
 
   {% endblock %}
   </body>

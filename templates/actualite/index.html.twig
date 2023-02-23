@@ -1,51 +1,43 @@
-{% extends './frontOffice.html.twig' %}
-{% block title %}Actualite index{% endblock %}
+
+{% extends 'frontOffice.html.twig' %}
+
 {% block body %}
-<div class='act-tab'>
-    <h1>Gestion des actualités </h1>
-    
-    <table class="table" style="color:white">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Description</th>
-                <th>Titre</th>
-                <th>actions</th>
-            </tr>
-        </thead>        
-        <tbody>
-        {% for actualite in actualites %}
-            <tr>
-                <td >{{ actualite.id }}</td>
-                <td>{{ actualite.Description }}</td>
-                <td>{{ actualite.Titre }}</td>
-                <td>
-                    <a href="{{ path('app_actualite_show', {'id': actualite.id}) }}">show</a>
-                    /
-                    <a href="{{ path('app_actualite_edit', {'id': actualite.id}) }}">edit</a>
-                    /
-                    <a href="{{ path('app_commentaire_new',{'id': actualite.id}) }}">Comment</a>
-                     
 
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_actualite_new') }}">Create new</a>
+  <div class="page-heading">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h6>Liberty NFT Market</h6>
+          <h2>Discover Some Top Items</h2>
+          <span>Home > <a href="#">Explore</a></span>
+        </div>
+      </div>
     </div>
-    <style>
-    .act-tab{
-        position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-    }
-    </style>
+    <div class="featured-explore">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="owl-features owl-carousel">
+            {% for a in actualites %}
+              <div class="item">
+                <div class="thumb">
+                  <img src="../../assets/images/featured-03.jpg" alt="" style="border-radius: 20px;">
+                  <div class="hover-effect">
+                    <div class="content">
+                      <h4>{{a.titre}}</h4>
+                      <span class="author">
+                        <img src="../../assets/images/author.jpg" alt="" style="max-width: 50px; max-height: 50px; border-radius: 50%;">
+                        <h6>{{a.description}}<br><a href="{{path('app_actualite_show',{ 'id': a.id }) }}">View More</a></h6>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+{% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
-

@@ -1,4 +1,4 @@
-{% extends './backOffice.html.twig' %}
+{% extends './frontOffice.html.twig' %}
 {% block title %}Commentaire index{% endblock %}
 {% block body %}
     <div class='comment-tab'>
@@ -14,7 +14,7 @@
         </thead>
         <tbody>
         {% for commentaire in commentaires %}
-            <tr>
+            <tr style="color: white;">
                 <td>{{ commentaire.id }}</td>
                 <td>{{ commentaire.comment }}</td>
                 <td>

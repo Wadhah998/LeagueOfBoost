@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/actualite')]
+#[Route('/home')]
 class ActualiteController extends AbstractController
 {
     #[Route('/', name: 'app_actualite_index', methods: ['GET'])]
@@ -65,7 +65,6 @@ class ActualiteController extends AbstractController
             'form' => $form,
         ]);
     }
-
     #[Route('/{id}', name: 'app_actualite_delete', methods: ['POST'])]
     public function delete(Request $request, Actualite $actualite, ActualiteRepository $actualiteRepository): Response
     {
@@ -75,14 +74,13 @@ class ActualiteController extends AbstractController
 
         return $this->redirectToRoute('app_actualite_index', [], Response::HTTP_SEE_OTHER);
     }
-   
-    #[Route('/gestion', name: 'app_actualite_gestion', methods: ['GET'])]
-      public function gestion(ActualiteRepository $actualiteRepository): Response
-{
-    return $this->render('actualite/gestion.html.twig', [
-        'actualites' => $actualiteRepository->findAll(),
-    ]);
-}
-
+    #[Route('/liste', name:'app_actualite_liste', methods: ['GET'])]
+    public function index222(ActualiteRepository $actualiteRepository): Response
+    {
+        
+        return $this->render('actualite/liste.html.twig', [
+            'actualites' => $actualites->findAll(),
+        ]);
+    }
 
 }
