@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TeamRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TeamRepository::class)]
@@ -22,6 +24,14 @@ class Team
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
+
+    #[ORM\OneToMany(mappedBy: 'team', targetEntity: Player::class)]
+    private Collection $player;
+
+    public function __construct()
+    {
+        $this->player = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +70,36 @@ class Team
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Player>
+     */
+    public function getPlayer(): Collection
+    {
+        return $this->player;
+    }
+
+    public function addPlayer(Player $player): self
+    {
+        if (!$this->player->contains($player)) {
+            $this->player->add($player);
+            $player->setTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlayer(Player $player): self
+    {
+        if ($this->player->removeElement($player)) {
+            // set the owning side to null (unless already changed)
+            if ($player->getTeam() === $this) {
+                $player->setTeam(null);
+            }
+        }
 
         return $this;
     }

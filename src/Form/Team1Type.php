@@ -8,6 +8,8 @@ use App\Form\GameType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class Team1Type extends AbstractType
 {
@@ -16,9 +18,9 @@ class Team1Type extends AbstractType
         $builder
             ->add('name')
             ->add('description')
+            ->add('player')
             //->add('game')
-           
-
+            ->add("Save",SubmitType::class)
         ;
     }
 
