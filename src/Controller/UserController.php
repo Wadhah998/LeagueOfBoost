@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends AbstractController
 {
 
-    #[Route("/user/edit/{id}", name="app_user_edit")]
+    #[Route("/user/edit/{id}", name:"app_user_edit")]
 
     public function edit(Request $request, User $user)
     {
