@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<title>New Booster</title>
+
+{% block body %}
+    <h1>Create new Booster</h1>
+
+    {{ include('booster/_form.html.twig') }}
+
+    <a href="{{ path('app_booster_index') }}">back to list</a>
+{% endblock %}
