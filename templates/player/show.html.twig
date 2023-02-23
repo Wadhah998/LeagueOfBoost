@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<title>Player</title>
+
+{% block body %}
+    <h1>Player</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ player.id }}</td>
+            </tr>
+            <tr>
+                <th>Riot_username</th>
+                <td>{{ player.riotUsername }}</td>
+            </tr>
+            <tr>
+                <th>Op_gg</th>
+                <td>{{ player.opGg }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_player_index') }}">back to list</a>
+
+    <a href="{{ path('app_player_edit', {'id': player.id}) }}">edit</a>
+
+    {{ include('player/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,38 +1,35 @@
-<!DOCTYPE html>
-
-<title>Game</title>
+{% extends 'backOffice.html.twig' %}
 
 {% block body %}
-    <h1>Game</h1>
+    <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">Basic Table</h6>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Date</th>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ game.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ game.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ game.description }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ game.price }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ game.date ? game.date|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">{{ game.id }}</th>
+                                        <td>{{ game.title }}</td>
+                                        <td>{{ game.description }}</td>
+                                        <td>{{ game.price }}</td>
+                                        <td>{{ game.date ? game.date|date('Y-m-d H:i:s') : '' }}</td>
+                                        <td><a href="{{ path('app_game_edit', {'id': game.id}) }}">edit</a></td>
+                                    </tr>
+                            {{ include('game/_delete_form.html.twig') }}
 
-    <a href="{{ path('app_game_index') }}">back to list</a>
+                             <a href="{{ path('app_game_index') }}">back to list</a>
 
-    <a href="{{ path('app_game_edit', {'id': game.id}) }}">edit</a>
-
-    {{ include('game/_delete_form.html.twig') }}
+                        </div>
+                    </div>
 {% endblock %}

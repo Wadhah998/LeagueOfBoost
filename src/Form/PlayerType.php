@@ -2,31 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\Team;
-use App\Entity\Game;
+use App\Entity\Player;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-
-class Team1Type extends AbstractType
+class PlayerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('description')
-            ->add('player')
-           // ->add('game')
-            ->add("Save",SubmitType::class)
+            ->add('riot_username')
+            ->add('op_gg')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Team::class,
+            'data_class' => Player::class,
         ]);
     }
 }

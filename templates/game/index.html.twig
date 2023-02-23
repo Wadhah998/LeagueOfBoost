@@ -28,6 +28,9 @@
                       <span class="category">Date:<br><strong> {{ game.date ? game.date|date('Y-m-d H:i:s') : '' }}</strong></span>
                       <div class="main-button">
                         <a href="{{path('app_team_new')}}">Register Now</a>
+                        
+                        <a href="{{ path('app_game_show', {'id': game.id}) }}">show</a>
+                        <a href="{{ path('app_game_edit', {'id': game.id}) }}">edit</a>
                       </div>
                     </div>
                   </div>
@@ -47,6 +50,7 @@
 {% endblock %}
 
 
+          
 
 
 
