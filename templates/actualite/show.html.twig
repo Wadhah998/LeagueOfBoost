@@ -1,0 +1,43 @@
+{% extends '/backOffice.html.twig' %}
+{% block title %}Actualite{% endblock %}
+
+{% block body %}
+<div class="act">
+    <h1>Actualite</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ actualite.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ actualite.Description }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ actualite.Titre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_actualite_index') }}">back to list</a>
+/
+    <a href="{{ path('app_actualite_edit', {'id': actualite.id}) }}">edit</a>
+
+    {{ include('actualite/_delete_form.html.twig') }}
+    </div>
+    <style>
+    .act{position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);}
+  th{
+    color:white;
+  }
+  .table{
+    border: 1px solid white;
+  }
+    </style>
+{% endblock %}
