@@ -22,17 +22,19 @@ class TeamController extends AbstractController
     }
 
     #[Route('/new', name: 'app_team_new', methods: ['GET', 'POST'])]
+
     public function new(Request $request, TeamRepository $teamRepository): Response
     {
         $team = new Team();
         $form = $this->createForm(Team1Type::class, $team);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $teamRepository->save($team, true);
 
 
-            return $this->redirectToRoute('app_team_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_game_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('team/new.html.twig', [

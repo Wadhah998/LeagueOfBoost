@@ -18,6 +18,7 @@ class Booster extends User
     #[ORM\OneToMany(mappedBy: 'booster', targetEntity: ReservationB::class)]
     private Collection $reservation;
 
+    
     public function __construct()
     {
         parent::__construct();
@@ -58,4 +59,6 @@ class Booster extends User
 
         return $this;
     }
+
+   
 }

@@ -36,7 +36,13 @@
         
           <div class="col-lg-8">
             <fieldset>
-              {{ form_widget(form.Save, {'attr': {'class': 'orange-button'}, 'label': 'Submit Your Application'}) }}
+              {{ form_label(form.game) }}
+              {{ form_widget(form.game) }}
+            </fieldset>
+          </div>
+          <div class="col-lg-8">
+            <fieldset>
+              {{ form_widget(form.Save, {'attr': {'class': 'orange-button', 'label':'Save'}}) }}
             </fieldset>
           </div>
         </div>
