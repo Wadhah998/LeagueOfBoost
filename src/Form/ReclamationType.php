@@ -24,8 +24,22 @@ class ReclamationType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'label' => 'Choose your theme',])
-            ->add('object')
-            ->add('text')
+            ->add('object', TextType::class, [
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/^[a-zA-Z\s]+$/',
+                        'message' => 'Invalid characters detected.',
+                    ]),
+                ],
+            ])
+            ->add('text', TextType::class, [
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/^[a-zA-Z\s]+$/',
+                        'message' => 'Invalid characters detected.',
+                    ]),
+                ],
+            ])
 
         ;
     }
