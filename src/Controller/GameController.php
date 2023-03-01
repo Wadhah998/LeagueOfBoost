@@ -21,6 +21,7 @@ class GameController extends AbstractController
         ]);
     }
 
+
     #[Route('/new', name: 'app_game_new', methods: ['GET', 'POST'])]
     public function new(Request $request, GameRepository $gameRepository): Response
     {

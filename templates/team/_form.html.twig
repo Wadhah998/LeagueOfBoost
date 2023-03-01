@@ -13,13 +13,19 @@
           <div class="col-lg-4">
             <fieldset>
               {{ form_label(form.name) }}
-              {{ form_widget(form.name, {'attr': {'placeholder': 'Ex. Team Wadhah', 'autocomplete': 'on'}}) }}
+              {{ form_widget(form.name, {'attr': {'placeholder': 'Ex. Team Wadhah'}}) }}
             </fieldset>
           </div>
           <div class="col-lg-4">
             <fieldset>
               {{ form_label(form.description) }}
-              {{ form_widget(form.description, {'attr': {'placeholder': 'Give us your idea', 'autocomplete': 'on'}}) }}
+              {{ form_widget(form.description, {'attr': {'placeholder': 'Give us your idea'}}) }}
+            </fieldset>
+          </div>
+          <div class="col-lg-4">
+            <fieldset>
+             {{ form_label(form.game, null, {'label_attr': {'for': 'game.id'}}) }}
+            {{ form_widget(form.game, {'attr': {'id': 'game_id'}}) }}
             </fieldset>
           </div>
           <div class="col-lg-8">
@@ -33,5 +39,3 @@
     </div>
   </div>
 </div>
-
-
