@@ -1,12 +1,100 @@
 {% extends '/backOffice.html.twig' %}
 
-{% block title %}Esprit{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+
+<div class="container-fluid pt-4 px-20">
+    <div class="row g-4">
+        <div class="col-sm-20 col-xl-20">
+            <div class="bg-secondary rounded h-100 p-4">
+
+                <table class="table">
+                    <div class="col-12">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h4 class="mb-4" style="text-align: center" >Game List</h4>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th style="text-align: center" scope="col">Id</th>
+                                        <th style="text-align: center" scope="col">Title</th>
+                                        <th style="text-align: center" scope="col">Description</th>
+                                        <th  class="text-danger" style="text-align: center" scope="col">Edit</th>
+
+                                        <th  class="text-danger" style="text-align: center" scope="col">Delete</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for game in games %}
+                                    <tr>
+                                        <th style="text-align: center" scope="row">{{ game.id }}</th>
+                                        <td style="text-align: center" >{{ game.title }}</td>
+                                        <td style="text-align: center" >{{ game.description }}</td>
+                                        <td style="text-align: center" ><a href="{{ path('app_game_edit', {'id': game.id}) }}">Edit</a> </td>
 
 
+                                        <td style="text-align: center" ><form method="post" action="{{ path('app_game_delete', {'id': game.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ game.id) }}">
+                                                <button class="btn-danger">Delete</button>
+                                            </form></td>
+
+
+                                    </tr>
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                                 <a href="{{ path('app_game_new') }}">Create new</a>
+                            </div>
+                        </div>
+                    </div>
+<table class="table">
+                    <div class="col-12">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h4 class="mb-4" style="text-align: center" >Team List</h4>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th style="text-align: center" scope="col">Id</th>
+                                        <th style="text-align: center" scope="col">Team Name</th>
+                                        <th style="text-align: center" scope="col">Description</th>
+                                        <th  class="text-danger" style="text-align: center" scope="col">Edit</th>
+
+                                        <th  class="text-danger" style="text-align: center" scope="col">Delete</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for team in teams %}
+                                    <tr>
+                                        <th style="text-align: center" scope="row">{{ team.id }}</th>
+                                        <td style="text-align: center" >{{ team.name }}</td>
+                                        <td style="text-align: center" >{{ team.description }}</td>
+                                        <td style="text-align: center" ><a href="{{ path('app_team_edit', {'id': team.id}) }}">Edit</a> </td>
+
+
+                                        <td style="text-align: center" ><form method="post" action="{{ path('app_team_delete', {'id': team.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ team.id) }}">
+                                                <button class="btn-danger">Delete</button>
+                                            </form></td>
+
+
+                                    </tr>
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                                 <a href="{{ path('app_team_new') }}">Create new</a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </table>
+                </table></div></div></div></div>
+
+                </div></div></div></div>
+
+        <!-- Table End -->
 {% endblock %}

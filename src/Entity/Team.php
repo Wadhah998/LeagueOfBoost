@@ -21,12 +21,14 @@ class Team
     private ?Game $game = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Team name can't be null !")]
+    #[Assert\Length (min:10, msg:"Team name not long enough")]
+    #[Assert\NotBlank ("Please insert team name")]
+
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "This field can't be null !")]
-
+    #[Assert\Length (min:10, msg:"Team description not long enough")]
+    #[Assert\NotBlank ("Please insert team description")]
     private ?string $description = null;
 
     #[ORM\OneToMany(mappedBy: 'team', targetEntity: Player::class)]

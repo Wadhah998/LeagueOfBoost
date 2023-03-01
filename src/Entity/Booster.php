@@ -13,7 +13,7 @@ class Booster extends User
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    protected ?int $id = null;
 
     #[ORM\OneToMany(mappedBy: 'booster', targetEntity: ReservationB::class)]
     private Collection $reservation;

@@ -40,7 +40,7 @@ class TeamController extends AbstractController
         return $this->renderForm('team/new.html.twig', [
             'team' => $team,
             'form' => $form,
-        ]);
+        ]); 
     }
 
     #[Route('/{id}', name: 'app_team_show', methods: ['GET'])]
@@ -76,6 +76,6 @@ class TeamController extends AbstractController
             $teamRepository->remove($team, true);
         }
 
-        return $this->redirectToRoute('app_team_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_game_admin', [], Response::HTTP_SEE_OTHER);
     }
 }

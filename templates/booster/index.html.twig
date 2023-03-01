@@ -1,0 +1,60 @@
+{% extends 'frontOffice.html.twig' %}
+
+{% block body %}
+    <div class="currently-market">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="section-heading">
+            <div class="line-dec"></div>
+            <h2><em>Items</em> Currently In The Market.</h2>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="filters">
+            <ul>
+              <li data-filter="*"  class="active">All Items</li>
+              <li data-filter=".msc">Music Art</li>
+              <li data-filter=".dig">Digital Art</li>
+              <li data-filter=".blc">Blockchain</li>
+              <li data-filter=".vtr">Virtual</li>
+            </ul>
+          </div>
+        </div>
+          {% for booster in boosters %}
+        <div class="col-lg-12">
+          <div class="row grid">
+            <div class="col-lg-6 currently-market-item all msc">
+              <div class="item">
+                <div class="left-image">
+                  <img src="../../assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
+                </div>
+                <div class="right-content">
+                  <h4>Booster</h4>
+                  <span class="author">
+                    <img src="assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
+                  </span>
+                  <span class="bid">price<BR><em>availability </em>
+                  <BR>
+                  </span>
+                  <span class="bid">{{ booster.price }}DT<BR><em>{{ booster.availability }} </em>
+                  </span>
+                  <br>
+                  <span class="bid">rang<BR><em>Lane </em>
+                <br>
+                  </span>
+                  <span class="bid">{{ booster.rang }}<BR><em>{{ booster.lane }} </em>
+                  </span>
+                  <br>
+                  <a href="{{path('app_reservation_b_new')}}">
+                  <div class="buttons">
+                  <br>
+              <div class="border-button">Book !!</a>
+              </div>
+            </div>
+                </div>
+              </div>
+            </div>
+  </div>
+   {% endfor %}
+{% endblock %}
