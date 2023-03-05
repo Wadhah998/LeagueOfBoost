@@ -51,8 +51,8 @@
                         <li><a href="#">Boosting</a></li>
                         <li><a href="{{path('app_game_index')}}">League Of Games</a></li>
                         {% if app.user %}
-                          {% if app.user.username=="admin" %}
-                              <li><a href="{{ path('app_user_index') }}">Dashbord</a></li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                              <li><a href="{{ path('app_admin') }}">Dashbord</a></li>
                               {% else %}
                               <li><a href="#">Make a report</a></li>
                             {% endif %}
@@ -64,10 +64,7 @@
                         {% else %}
                             <li><a href="{{ path('app_login') }}">Join Us</a></li>
                         {% endif %}
-                        {# {% if app.user.roles is NotBlank and app.user.roles == ROLE_ADMIN   %}
 
-                        <li><a href="{{ path('app_admin') }}"></a> Admin_Panel </li>
-                        {% endif %}#}
 
                     </ul>
                     <a class='menu-trigger'>
@@ -91,9 +88,11 @@
                     <h2>Coaching, Boosting and Fun games with your team !</h2>
                     <p>Liberty NFT Market is a really cool and professional design for your NFT websites. This HTML CSS template is based on Bootstrap v5 and it is designed for NFT related web portals. Liberty can be freely downloaded from TemplateMo's free css templates.</p>
                     <div class="buttons">
+                       {% if app.user %}
+                        {% if  app.user.roles == ['ROLE_USER']  %}
                         <div class="border-button">
-                            <a href="explore.html">Explore Top NFTs</a>
-                        </div>
+                            <a href="{{ path('app_user_editcoach', {'id': app.user.id}) }}">Be a coach</a>
+                        </div>{% endif %}{% endif %}
                         <div class="main-button">
                             <a href="https://youtube.com/templatemo" target="_blank">Watch Our Videos</a>
                         </div>
