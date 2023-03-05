@@ -11,7 +11,7 @@
                     <table class="table">
                         <div class="col-12">
                             <div class="bg-secondary rounded h-100 p-4">
-                                <h6 class="mb-4" style="text-align: center" >Coachs demands</h6>
+                                <h6 class="mb-4" style="text-align: center" >Booster demands</h6>
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
@@ -34,26 +34,26 @@
                                         {% for user in users %}
 
                                             {% if user.voie != null %}
-                                            {% if user.roles == ['ROLE_USER'] %}
-                                                {% if user.disponibility == null %}
-                                            <tr>
-                                                {% if user.username != "admin" %}
+                                                {% if user.roles == ['ROLE_USER'] %}
+                                                    {% if user.disponibility != null %}
+                                                        <tr>
+                                                        {% if user.username != "admin" %}
 
-                                                    <th style="text-align: center" scope="row">{{ user.id }}</th>
-                                                    <td style="text-align: center" >{{ user.firstname }}</td>
-                                                    <td style="text-align: center" >{{ user.lastname }}</td>
-                                                    <td style="text-align: center">{{ user.email }}</td>
-                                                    <td style="text-align: center" >{{ user.username }}</td>
-                                                    <td style="text-align: center" >{{ user.solde }}</td>
-                                                    <td style="text-align: center" >{{ user.prix }}</td>
-                                                    <td style="text-align: center" >{{ user.lienOpgg}}</td>
-                                                    <td style="text-align: center" >{{ user.voie}}</td>
-                                                    <td style="text-align: center" >
+                                                            <th style="text-align: center" scope="row">{{ user.id }}</th>
+                                                            <td style="text-align: center" >{{ user.firstname }}</td>
+                                                            <td style="text-align: center" >{{ user.lastname }}</td>
+                                                            <td style="text-align: center">{{ user.email }}</td>
+                                                            <td style="text-align: center" >{{ user.username }}</td>
+                                                            <td style="text-align: center" >{{ user.solde }}</td>
+                                                            <td style="text-align: center" >{{ user.prix }}</td>
+                                                            <td style="text-align: center" >{{ user.lienOpgg}}</td>
+                                                            <td style="text-align: center" >{{ user.voie}}</td>
+                                                            <td style="text-align: center" >
 
-                                                        <a href="{{ path('edit_user_role', {'id': user.id}) }}" class="btn-danger"> accept </a>
-                                                        </td>
-                                               {% endif %}
-                                                {% endif %}
+                                                                <a href="{{ path('edit_user_role_booster', {'id': user.id}) }}" class="btn-danger"> accept </a>
+                                                            </td>
+                                                        {% endif %}
+                                                    {% endif %}
                                                 {% endif %} {% endif %}
 
 
