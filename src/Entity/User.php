@@ -38,6 +38,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $voie = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lienOpgg = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $solde = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $prix = null;
+
 
 
     public function getId(): ?int
@@ -170,6 +185,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->username.
             $this->password;
 
+    }
+
+    public function getVoie(): ?string
+    {
+        return $this->voie;
+    }
+
+    public function setVoie(?string $voie): self
+    {
+        $this->voie = $voie;
+
+        return $this;
+    }
+
+    public function getLienOpgg(): ?string
+    {
+        return $this->lienOpgg;
+    }
+
+    public function setLienOpgg(?string $lienOpgg): self
+    {
+        $this->lienOpgg = $lienOpgg;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getSolde(): ?int
+    {
+        return $this->solde;
+    }
+
+    public function setSolde(?int $solde): self
+    {
+        $this->solde = $solde;
+
+        return $this;
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(?int $prix): self
+    {
+        $this->prix = $prix;
+
+        return $this;
     }
 
 }

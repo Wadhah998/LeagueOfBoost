@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\CoachType;
 use App\Form\RegistrationFormType;
 use App\Form\UserType;
+use App\Repository\CoachRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +20,13 @@ class UserController extends AbstractController
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
+            'users' => $userRepository->findAll(),
+        ]);
+    }
+    #[Route('/demandeCoach', name: 'app_user_coachDemande', methods: ['GET'])]
+    public function demandeCoach(UserRepository $userRepository): Response
+    {
+        return $this->render('user/demandeCoach.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
     }
@@ -66,6 +75,23 @@ class UserController extends AbstractController
             'form' => $form
         ]);
     }
+    #[Route('/{id}/editCoach', name: 'app_user_editcoach', methods: ['GET', 'POST'])]
+    public function editCoach(Request $request, User $user, UserRepository  $coachRepository ): Response
+    {
+        $form = $this->createForm(CoachType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $coachRepository->save($user, true);
+
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('user/beCoach.html.twig', [
+            'user' => $user,
+            'Coachform' => $form
+        ]);
+    }
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
@@ -75,6 +101,27 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route("/edit-role/{id}", name:'edit_user_role')]
+
+    public function editUserRole($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $user = $entityManager->getRepository(User::class)->find($id);
+
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No user found for id '.$id
+            );
+        }
+
+        $user->setRoles(['ROLE_CHOACH']);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_user_coachDemande', [], Response::HTTP_SEE_OTHER);
     }
 
 }
