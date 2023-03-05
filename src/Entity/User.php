@@ -53,6 +53,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $prix = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $disponibility = null;
+
 
 
     public function getId(): ?int
@@ -243,6 +246,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrix(?int $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function isDisponibility(): ?bool
+    {
+        return $this->disponibility;
+    }
+
+    public function setDisponibility(?bool $disponibility): self
+    {
+        $this->disponibility = $disponibility;
 
         return $this;
     }

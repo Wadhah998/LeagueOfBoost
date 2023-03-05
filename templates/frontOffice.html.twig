@@ -92,10 +92,11 @@
                         {% if  app.user.roles == ['ROLE_USER']  %}
                         <div class="border-button">
                             <a href="{{ path('app_user_editcoach', {'id': app.user.id}) }}">Be a coach</a>
-                        </div>{% endif %}{% endif %}
-                        <div class="main-button">
-                            <a href="https://youtube.com/templatemo" target="_blank">Watch Our Videos</a>
                         </div>
+                        <div class="main-button">
+                            <a href="{{ path('app_user_editBooster', {'id': app.user.id}) }}" >Be a booster</a>
+                        </div>
+                       {% endif %} {% endif %}
                     </div>
                 </div>
             </div>

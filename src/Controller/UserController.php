@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\BoosterType;
 use App\Form\CoachType;
 use App\Form\RegistrationFormType;
 use App\Form\UserType;
@@ -27,6 +28,13 @@ class UserController extends AbstractController
     public function demandeCoach(UserRepository $userRepository): Response
     {
         return $this->render('user/demandeCoach.html.twig', [
+            'users' => $userRepository->findAll(),
+        ]);
+    }
+    #[Route('/demandeBooster', name: 'app_user_BoosterDemande', methods: ['GET'])]
+    public function demandeBooster(UserRepository $userRepository): Response
+    {
+        return $this->render('user/demandeBooster.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
     }
@@ -92,6 +100,23 @@ class UserController extends AbstractController
             'Coachform' => $form
         ]);
     }
+    #[Route('/{id}/editBooster', name: 'app_user_editBooster', methods: ['GET', 'POST'])]
+    public function editBooster(Request $request, User $user, UserRepository  $boosterRepository ): Response
+    {
+        $form = $this->createForm(BoosterType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $boosterRepository->save($user, true);
+
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('user/beBooster.html.twig', [
+            'user' => $user,
+            'BoosterForm' => $form
+        ]);
+    }
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
@@ -122,6 +147,25 @@ class UserController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_user_coachDemande', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route("/edit-role-booster/{id}", name:'edit_user_role_booster')]
+    public function editUserRoleBooster($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $user = $entityManager->getRepository(User::class)->find($id);
+
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No user found for id '.$id
+            );
+        }
+
+        $user->setRoles(['ROLE_BOOSTER']);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_user_BoosterDemande', [], Response::HTTP_SEE_OTHER);
     }
 
 }
