@@ -52,10 +52,6 @@
                         <li><a href="{{path('app_game_index')}}">League Of Games</a></li>
                         {% if app.user %}
 
-                            {% if app.user.username=="admin" %}
-                                <li><a href="{{ path('app_user_index') }}">Dashbord</a></li>
-                            {% else %}
-                                <li><a href="#">Make a report</a></li>
 
                             {% if is_granted('ROLE_ADMIN') %}
                               <li><a href="{{ path('app_admin') }}">Dashbord</a></li>

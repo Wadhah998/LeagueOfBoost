@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BoosterRepository::class)]
-class Booster extends User
+class Booster
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -44,11 +44,7 @@ class Booster extends User
     #[ORM\Column]
     private ?bool $availability = null;
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->reservation = new ArrayCollection();
-    }
+
 
     public function getId(): ?int
     {
