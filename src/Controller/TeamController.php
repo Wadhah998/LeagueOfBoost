@@ -29,7 +29,8 @@ class TeamController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $teamRepository->add($team, flush:true);
+            $teamRepository->save($team, true);
+
 
             return $this->redirectToRoute('app_team_index', [], Response::HTTP_SEE_OTHER);
         }

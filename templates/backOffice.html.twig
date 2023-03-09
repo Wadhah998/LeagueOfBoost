@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title> {% block titile %} LeagueOfBoost {% endblock %} </title>
+    <title> {% block title %} LeagueOfBoost {% endblock %} </title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -15,7 +15,7 @@
          {% block css %}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600family=Roboto:wght@500;700display=swap" rel="stylesheet">
 
         <!-- Icon Font Stylesheet -->
         <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css') }}" rel="stylesheet">
@@ -23,6 +23,7 @@
 
 
         <!-- Libraries Stylesheet -->
+
         <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
         <link href="{{ asset('lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
 
@@ -31,6 +32,14 @@
 
         <!-- Template Stylesheet -->
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        <link href="../../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="../../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="../../css/style.css" rel="stylesheet">
        {% endblock %}
 </head>
 <body>
@@ -38,17 +47,7 @@
     <div class="container-fluid position-relative d-flex p-0">
 
         <!-- Spinner Start -->
-        {% block body %}
 
-        <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-
-                <span class="sr-only">Loading...</span>
-
-            </div>
-        </div>
-        {% endblock %}
 
 
         <!-- Spinner End -->
@@ -89,7 +88,12 @@
                              <a href="new.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>new</a>
                         </div>
                     </div>
+
                     <a href= "{{path('app_actualite_new')}}"class="nav-item nav-link"><i class="fa fa-th me-2"></i>Gestion Actualite</a>>
+
+                    <a href="{{ path('app_user_index') }}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Users List</a>
+                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
+
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                     <a href="new.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>new</a>
@@ -209,13 +213,16 @@
             </nav>
             <!-- Navbar End -->
 
+            {% block body %}
 
+            {% endblock %}
 
             <!-- Sale & Revenue Start -->
 
 
 <!-- JavaScript Libraries -->
    {% block js %}
+
    <script src="{{ asset('js/jquery.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/chart.min.js') }}"></script>
@@ -229,6 +236,19 @@
 
     <!-- Template Javascript -->
 <script src="{{ asset('js/main.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../lib/chart/chart.min.js"></script>
+    <script src="../../lib/easing/easing.min.js"></script>
+    <script src="../../lib/waypoints/waypoints.min.js"></script>
+    <script src="../../lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../../lib/tempusdominus/js/moment.min.js"></script>
+    <script src="../../lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="../../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../../js/main.js"></script>
+
    {% endblock %}
 
 </body>

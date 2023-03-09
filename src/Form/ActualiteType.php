@@ -6,6 +6,8 @@ use App\Entity\Actualite;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Length;
 
 class ActualiteType extends AbstractType
 {
@@ -13,7 +15,13 @@ class ActualiteType extends AbstractType
     {
         $builder
             ->add('Description')
-            ->add('Titre')
+            ->add('Titre', TextType::class, [
+                'label' => 'Titre',
+                'constraints' => [
+                    new Length(['max' => 50, 'maxMessage' => 'Field must be no more than 50 characters.'])
+                ]
+         
+            ]);
         ;
     }
 

@@ -38,8 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column]
-    private ?bool $activated = false;
+
 
     public function getId(): ?int
     {
@@ -161,15 +160,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isActivated(): ?bool
+
+
+    public function __toString(): string
     {
-        return $this->activated;
+        return $this->firstname.
+            $this->lastname.
+            $this->email.
+            $this->username.
+            $this->password;
+
     }
 
-    public function setActivated(bool $activated): self
-    {
-        $this->activated = $activated;
-
-        return $this;
-    }
 }

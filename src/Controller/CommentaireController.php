@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
+use App\Entity\Actualite;
 use App\Form\CommentaireType;
 use App\Repository\CommentaireRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,10 +22,12 @@ class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CommentaireRepository $commentaireRepository): Response
+    #[Route('/new/{id}', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
+    public function new($id,Request $request, CommentaireRepository $commentaireRepository): Response
     {
         $commentaire = new Commentaire();
+        $actualite = $this->getDoctrine()->getRepository(Actualite::class)->find($id);
+        $commentaire->setComments($actualite);
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
 
@@ -72,7 +75,7 @@ class CommentaireController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$commentaire->getId(), $request->request->get('_token'))) {
             $commentaireRepository->remove($commentaire, true);
         }
-
+        
         return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit Booster</title>
+
+{% block body %}
+    <h1>Edit Booster</h1>
+
+    {{ include('booster/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_booster_index') }}">back to list</a>
+
+    {{ include('booster/_delete_form.html.twig') }}
+{% endblock %}

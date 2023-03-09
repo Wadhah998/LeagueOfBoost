@@ -46,16 +46,26 @@ https://templatemo.com/tm-577-liberty-market
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="/home" class="active">Home</a></li>
                         <li><a href="explore.html">Coaching</a></li>
-                        <li><a href="details.html">Boosting</a></li>
+                        <li><a href="{{path('app_booster_index')}}">Boosting</a></li>
                         <li><a href="{{path('app_game_index')}}">League Of Games</a></li>
                         {% if app.user %}
-                            <li><a href="{{ path('app_user_edit', {'id': app.user.id}) }}.html">profile</a></li>
+
+                            <li><a href="{{path('app_reclamation_new')}}">Make a report</a></li>
+                            <li><a href="{{ path('app_user_show', {'id': app.user.id}) }}"> profile</a></li>
+
+
                             <li><a href="{{ path('app_logout') }}">logout</a></li>
+
                         {% else %}
                         <li><a href="{{ path('app_login') }}">Join Us</a></li>
                         {% endif %}
+                       {# {% if app.user.roles is NotBlank and app.user.roles == ROLE_ADMIN   %}
+
+                        <li><a href="{{ path('app_admin') }}"></a> Admin_Panel </li>
+                        {% endif %}#}
+
                     </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>

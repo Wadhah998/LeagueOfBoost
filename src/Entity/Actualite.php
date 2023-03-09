@@ -25,6 +25,9 @@ class Actualite
     #[ORM\Column(length: 255)]
     private ?string $Titre = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $Likes = null;
+
     public function __construct()
     {
         $this->commentaire = new ArrayCollection();
@@ -92,4 +95,16 @@ class Actualite
 {
     return $this->getTitre(); // or whatever property you want to use as the string representation
 }
+
+    public function getLikes(): ?int
+    {
+        return $this->Likes;
+    }
+
+    public function setLikes(?int $Likes): self
+    {
+        $this->Likes = $Likes;
+
+        return $this;
+    }
 }

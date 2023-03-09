@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\ActualiteRepository;
 use App\Repository\CommentaireRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,8 +17,8 @@ class Commentaire
     #[ORM\Column(type: Types::TEXT)]
     private ?string $comment = null;
 
-    #[ORM\ManyToOne(inversedBy: 'commentaire')]
-    private ?Actualite $comments = null;
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    public ?Actualite $comments = null;
 
     public function getId(): ?int
     {

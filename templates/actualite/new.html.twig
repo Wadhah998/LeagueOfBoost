@@ -1,76 +1,42 @@
 {% extends '/backOffice.html.twig' %}
 
-{% block title %}New Actualite{% endblock %}
-
 {% block body %}
-   <div class="new-act">
-    <h1>Create new Actualite</h1>
-
-    {{ include('actualite/_form.html.twig') }}
-
-    <a href="{{ path('app_actualite_index') }}">back to list</a>
+  <div class="page-heading">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h6>Liberty NFT Market</h6>
+          <h2>Discover Some Top Items</h2>
+          <span>Home > <a href="#">Explore</a></span>
+        </div>
+      </div>
     </div>
-<style>
-button{
-  margin:20px 0 0 0;
-  border-radius:20px;
-   background:white;
-   
+  </div>
   
-  
-}
-.new-act{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-    margin:10px 0 0 10px;
-
-}
-
-#actualite_Description {
-  font-weight: 500;
-  font-size: 14px;
-  width:400px;
-  height: 40px;
-  
-  border-radius: 10px;
-  padding-left: 10px;
-  border: none;
-  border-bottom: 1px solid #e5e5e5;
-  outline: none;
-}
-
-#actualite_Description {
-  border-bottom: 1px solid #6941c6;
-  -webkit-transition: 0.1s;
-  transition: 0.5s;
-}
+  <div class="container-fluid">
+    {% for a in actualites %}
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+          <div class="item" style="margin:20px 0 20px 0 ; border : 2px solid rgba(255, 255, 255, 0.3);  border-radius: 20px ; padding: 15px; ">
+            <h4 style="font-size: 24px; color: purple; font-weight: bold; margin :10px 0 10px 20px;">{{ a.titre }}</h4>
+            <div class="thumb" style=" text-align: center;"  >
+              <img src="../../assets/images/featured-03.jpg" alt="" style="border-radius: 20%; margin-bottom : 15px;  max-width: 350px ;">
+              <div class="hover-effect">
+                <div class="content text-center">
+                  <img src="../../assets/images/author.jpg" alt="" style="max-width: 50px; max-height: 50px; border-radius: 50%; margin-bottom: 10px;">
+                  <p style="color: black; font-size: 18px;">{{ a.description }}</p>
+                  <a href="{{ path('app_actualite_edit', {'id': a.id}) }}">edit</a> <br>
+                  <a href="{{ path('app_actualite_delete', {'id': a.id}) }}">delete</a>
+                  <a href="{{ path('app_actualite_newnew') }}">ajouter</a>
+                  <p style="margin -10px 0 0 0;"><a href="{{ path('app_actualite_show', { 'id': a.id }) }}" style="color: lightpurple;">View More</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 
 
-#actualite_Titre {
-  font-weight: 500;
-  font-size: 14px;
-  height: 40px;
-  width:400px;
-  border-radius: 10px;
-  padding-left: 10px;
-  border: none;
-  border-bottom: 1px solid #e5e5e5;
-  outline: none;
-}
-
-#actualite_Titre {
-  border-bottom: 1px solid #6941c6;
-  -webkit-transition: 0.1s;
-  transition: 0.5s;
-}
-label{
-  color:gray;
-  display: block;
-  margin-bottom : 10px;
-  margin:10px 0 0 10px;
-
-}
-</style>
 {% endblock %}
