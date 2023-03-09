@@ -24,28 +24,35 @@
           </div>
           <div class="col-lg-4">
             <fieldset>
-             {{ form_label(form.game, null, {'label_attr': {'for': 'game.id'}}) }}
-            {{ form_widget(form.game, {'attr': {'id': 'game_id'}}) }}
+              {{ form_label(form.player1) }}
+              {{ form_widget(form.player1, {'attr': {'placeholder': 'Please enter player username'}}) }}
             </fieldset>
           </div>
           <div class="col-lg-4">
             <fieldset>
-              {{ form_label(form.player) }}
-              {% for player in form.player %}
-
-            {{ form_widget(player.riot_username) }}
-            
-              {% endfor %}
-              
+              {{ form_label(form.player2) }}
+              {{ form_widget(form.player2, {'attr': {'placeholder': 'Give us your idea'}}) }}
             </fieldset>
           </div>
-        
-          <div class="col-lg-8">
+          <div class="col-lg-4">
             <fieldset>
-              {{ form_label(form.game) }}
-              {{ form_widget(form.game) }}
+              {{ form_label(form.player3) }}
+              {{ form_widget(form.player3, {'attr': {'placeholder': 'Give us your idea'}}) }}
             </fieldset>
           </div>
+          <div class="col-lg-4">
+            <fieldset>
+              {{ form_label(form.player4) }}
+              {{ form_widget(form.player4, {'attr': {'placeholder': 'Give us your idea'}}) }}
+            </fieldset>
+          </div>
+          <div class="col-lg-4">
+            <fieldset>
+              {{ form_label(form.player5) }}
+              {{ form_widget(form.player5, {'attr': {'placeholder': 'Give us your idea'}}) }}
+            </fieldset>
+          </div>
+          
           <div class="col-lg-8">
             <fieldset>
               {{ form_widget(form.Save, {'attr': {'class': 'orange-button', 'label':'Save'}}) }}

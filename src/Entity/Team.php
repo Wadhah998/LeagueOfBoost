@@ -21,18 +21,29 @@ class Team
     private ?Game $game = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length (min:10, msg:"Team name not long enough")]
-    #[Assert\NotBlank ("Please insert team name")]
 
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length (min:10, msg:"Team description not long enough")]
-    #[Assert\NotBlank ("Please insert team description")]
     private ?string $description = null;
 
     #[ORM\OneToMany(mappedBy: 'team', targetEntity: Player::class)]
     private Collection $player;
+
+    #[ORM\Column(length: 255)]
+    private ?string $player1 = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $player2 = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $player3 = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $player4 = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $player5 = null;
 
     public function __construct()
     {
@@ -106,6 +117,66 @@ class Team
                 $player->setTeam(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPlayer1(): ?string
+    {
+        return $this->player1;
+    }
+
+    public function setPlayer1(string $player1): self
+    {
+        $this->player1 = $player1;
+
+        return $this;
+    }
+
+    public function getPlayer2(): ?string
+    {
+        return $this->player2;
+    }
+
+    public function setPlayer2(string $player2): self
+    {
+        $this->player2 = $player2;
+
+        return $this;
+    }
+
+    public function getPlayer3(): ?string
+    {
+        return $this->player3;
+    }
+
+    public function setPlayer3(string $player3): self
+    {
+        $this->player3 = $player3;
+
+        return $this;
+    }
+
+    public function getPlayer4(): ?string
+    {
+        return $this->player4;
+    }
+
+    public function setPlayer4(string $player4): self
+    {
+        $this->player4 = $player4;
+
+        return $this;
+    }
+
+    public function getPlayer5(): ?string
+    {
+        return $this->player5;
+    }
+
+    public function setPlayer5(string $player5): self
+    {
+        $this->player5 = $player5;
 
         return $this;
     }

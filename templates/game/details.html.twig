@@ -1,0 +1,67 @@
+{% extends 'frontOffice.html.twig' %}
+
+{% block body %}
+<br>
+<br>
+    <div class="top-seller">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                 <div class="section-heading">
+                  <div class="line-dec"></div>
+                  <h3>Your Game Infos</h3>
+                </div>
+              </div>
+                            <table class="table">
+                                <div class="col-12">
+                                <div class="table-responsive">
+                                <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Date</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody> 
+                                    <tr>
+                                        <td>{{ game.title }}</td>
+                                        <td>{{ game.description }}</td>
+                                        <td>{{ game.price }} DT</td>
+                                        <td>{{ game.date ? game.date|date('Y-m-d H:i:s') : '' }}</td>
+                                        <td>  <form action="{{path('app_payment')}}" method="post">
+            
+                                            <input type="hidden" name="token"  value="{{csrf_token('myform')}}">
+
+                                            <input type="hidden" name="amount"  value="{{game.price}}">
+
+                                            <button class="btn">
+                                            <span>Pay with paypal</span>
+                                            </button>
+                                    </form></td>
+                                    </tr>
+                                    </tbody>
+                                    </table>
+                                    </div>
+                                    </div>
+                                </div>
+                               
+                                </table>
+
+
+                                          
+                                </div>
+                                </div>
+                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                            </div>
+                        </div>
+
+                           
+{% endblock %}
