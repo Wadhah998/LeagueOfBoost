@@ -1,8 +1,6 @@
 {% extends 'frontOffice.html.twig' %}
 
 {% block body %}
-
-
     <table class="table">
         <thead>
             <tr>
@@ -14,6 +12,9 @@
             </tr>
         </thead>
         <tbody>
+
+
+
         {% for reclamation in reclamations %}
             {% if reclamation.etat %}
             <script>
@@ -30,6 +31,7 @@
                 <td style="color: #FFFFFF">{{ reclamation.object }}</td>
                 <td style="color: #FFFFFF">{{ reclamation.etat ? 'Saved successfully' : 'On hold' }}</td>
                 <form>
+
                     <td>
                         <a style="color: #d41414" class="btn" href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}">show&nbsp&nbsp</a>
 
@@ -39,14 +41,16 @@
                              <button style="color: #FFFFFF" class="btn"></button>
                         </form>
                     </td>
-            </tr>
-            </form>
+                 </form>
         {% else %}
             <tr>
                 <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
+
+
         </tbody>
     </table>
+
 
 {% endblock %}

@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Rating;
+
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -52,14 +53,14 @@ class ReclamationController extends AbstractController
 
 
     #[Route('/', name: 'app_reclamation_index', methods: ['GET'])]
-    public function index(Request $request,ReclamationRepository $reclamationRepository,EntityManagerInterface $entityManager): Response
+    public function index(Request $request,ReclamationRepository $reclamationRepository,
+                          EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
         $reclamation = new Reclamation();
         $reclamation->setUser($user);
-
         return $this->render('reclamation/index.html.twig', [
-            'reclamations' => $reclamationRepository->findBy(['user' => $user]),
+                'reclamations' => $reclamationRepository->findBy(['user' => $user]),
         ]);
 
     }
