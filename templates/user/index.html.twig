@@ -13,6 +13,9 @@
                             <div class="bg-secondary rounded h-100 p-4">
                                 <h6 class="mb-4" style="text-align: center" >Users List</h6>
                                 <div class="table-responsive">
+                                    {{ form_start(form,{'attr': {'id': 'contact'}} ) }}
+                                    {{ form_widget(form) }}
+                                    {{ form_end(form) }}
                                     <table class="table">
                                         <thead>
 

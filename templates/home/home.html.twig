@@ -3,6 +3,21 @@
 {% block body %}
   
 
+  {% if  is_granted('ROLE_CHOACH')  %}
+<script>
+    var username = "{{ app.user.username }}";
+
+    alert("Hello " + username + ", your Demand to be a COACH has been successfully treated.");
+</script>
+{% endif %}
+    {% if  is_granted('ROLE_BOOSTER')  %}
+        <script>
+            var username = "{{ app.user.username }}";
+
+            alert("Hello " + username + ", your Demand to be a BOOSTER has been successfully treated.");
+        </script>
+    {% endif %}
+
 
 {% endblock %}
 
