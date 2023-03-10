@@ -3,12 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Team;
+use App\Entity\Game;
+use App\Form\GameType;
 use App\Form\Team1Type;
+use App\Repository\GameRepository;
 use App\Repository\TeamRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 #[Route('/team')]
 class TeamController extends AbstractController
@@ -32,16 +37,19 @@ class TeamController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $teamRepository->save($team, true);
+            $this->addFlash('success', 'Team added successfully!');
+
 
 
             return $this->redirectToRoute('app_game_index', [], Response::HTTP_SEE_OTHER);
         }
-
+        
         return $this->renderForm('team/new.html.twig', [
             'team' => $team,
             'form' => $form,
         ]); 
     }
+    
 
     #[Route('/{id}', name: 'app_team_show', methods: ['GET'])]
     public function show(Team $team): Response
@@ -78,4 +86,17 @@ class TeamController extends AbstractController
 
         return $this->redirectToRoute('app_game_admin', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{id}', name: 'game_view')]
+    public function view(string $id,Game $game, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        // Retrieve the game by ID from the database
+        $game = $entityManager->getRepository(Game::class)->find($id);
+
+        // Render the view with the game information
+        return $this->render('game/details.html.twig', [
+            'game' => $game,
+        ]);
+    }
+  
 }

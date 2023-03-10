@@ -16,17 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/home')]
 class ActualiteController extends AbstractController
 {
-    #[Route('/', name: 'app_actualite_index', methods: ['GET'])]
-    public function index(ActualiteRepository $actualiteRepository ): Response
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-;       $entityManager->flush();
 
-        return $this->render('actualite/index.html.twig', [
-            'actualites' => $entityManager->getRepository(Actualite::class)->findActualitesOrderByLikes(), 
-            
-        ]);
-    }
 
     #[Route('/new', name: 'app_actualite_new', methods: ['GET', 'POST'])]
     public function newnew(Request $request, ActualiteRepository $actualiteRepository): Response

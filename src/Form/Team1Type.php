@@ -17,9 +17,14 @@ class Team1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+        
             ->add('name')
             ->add('description')
-            //->add('player')
+            ->add('player1')
+            ->add('player2')
+            ->add('player3')
+            ->add('player4')
+            ->add('player5')
             //->add('game')
 
             ->add('game',
