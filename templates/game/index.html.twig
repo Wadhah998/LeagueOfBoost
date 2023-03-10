@@ -1,20 +1,60 @@
 {% extends 'frontOffice.html.twig' %}
 
 {% block body %}
+
      <div class="container">
       <div class="row">
         <div class="col-lg-12">
           <div class="collections">
             <div class="row">
+
+        {% if app.flashes('success') %}
+            <script>
+                alertify.success('{{ app.flashes('success')[0] }}');
+            </script>
+        {% endif %}
+
               <div class="col-lg-12">
                 <div class="section-heading">
                   <div class="line-dec"></div>
                   <h2>Choose the <em>Game</em> you like.</h2>
                 </div>
               </div>
+
+              <div class="col-lg-8">
+            <div class="filters">
+          <div class="col-lg-12">
+          
+        {{ form_start(form, {'attr': {'id': 'contact'}}) }}
+        <div class="row">
+          <div class="col-lg-4">
+          <fieldset>
+              <p> Enter Max Price: </p>
+              <li data-filter=".msc">{{ form_widget(form.prixmax)}}</li>
+          </fieldset>
+          </div>
+
+          <div class="col-lg-4">
+          <fieldset>
+              <p> Enter Min Price: </p>
+              <li data-filter=".dig">{{ form_widget(form.prixmin)}}</li>
+          </fieldset>
+          </div>
+
+          <div class="col-lg-4">
+            <fieldset>
+          {{ form_widget(form.filter, {'attr': {'class': 'orange-button', 'label':'Filter'}}) }}
+            </fieldset>
+          </div>
+        </div>
+
+          {{ form_end(form) }}
+          </div>
+        </div>
+      </div>
               <div class="col-lg-12">
                 <div class="owl-collection owl-carousel">
-                
+                            
 
               {% for game in games %}
              
@@ -36,13 +76,12 @@
             {% endfor %}
              </div>
           </div>
+
          </div>
         </div>
       </div>
     </div> 
-    </div> 
-   
-
+  </div> 
 
 
 {% endblock %}

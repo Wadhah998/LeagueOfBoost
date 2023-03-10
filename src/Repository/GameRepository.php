@@ -39,6 +39,24 @@ class GameRepository extends ServiceEntityRepository
         }
     }
 
+    public function filterByPrice($prixmax,$prixmin)
+    {
+        $queryBuilder = $this->createQueryBuilder('c');
+
+        if ($prixmax !== null) {
+            $queryBuilder
+                ->andWhere('c.price <= :prixmax')
+                ->setParameter('prixmax', $prixmax);
+        }
+        if ($prixmin !== null) {
+            $queryBuilder
+                ->andWhere('c.price >= :prixmin')
+                ->setParameter('prixmin', $prixmin);
+        }
+        
+        return $queryBuilder->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Game[] Returns an array of Game objects
 //     */

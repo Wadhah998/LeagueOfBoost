@@ -11,6 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;                             
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use App\Form\PriceFilterType;
 
 
 #[Route('/game')]
@@ -19,9 +23,10 @@ class GameController extends AbstractController
 {
 
 
-      #[Route('/', name: 'app_game_index', methods: ['GET'])]
+    #[Route('/', name: 'app_game_index', methods: ['GET', 'POST'])]
     public function index(GameRepository $gameRepository, Request $request): Response
     {
+       
         $now = new \DateTime();
 
         // Define the target datetime
@@ -38,11 +43,47 @@ class GameController extends AbstractController
         // Format the interval as a countdown string
         $countdown = $interval->format('%a days, %h hours, %i minutes, %s seconds');
 
+            $form = $this->createFormBuilder()
+            ->add('prixmax', TextType::class, [
+                'required' => false,
+                'label' => 'prixmax',
+                'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('prixmin', TextType::class, [
+                'required' => false,
+                'label' => 'prixmin',
+                'label_attr' => ['style' => 'color: white']
+            ])
+            
+            ->add('filter', SubmitType::class, [
+                'label' => 'Filter'
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $prixmax = $form->get('prixmax')->getData();
+            $prixmin = $form->get('prixmin')->getData();
+        
+            
+            $games = $gameRepository->filterByPrice($prixmax,$prixmin);
+            
+            
+            return $this->render('game/index.html.twig', [
+                'form' => $form->createView(),
+                'games' => $games,
+                'countdown' => $countdown,
+            ]);
+        }
+
         return $this->render('game/index.html.twig', [
+            'form' => $form->createView(),
             'games' => $gameRepository->findAll(),
             'countdown' => $countdown,
             
         ]);
+    
     }
 
 

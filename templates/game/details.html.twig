@@ -3,19 +3,19 @@
 {% block body %}
 <br>
 <br>
-    <div class="top-seller">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                 <div class="section-heading">
-                  <div class="line-dec"></div>
-                  <h3>Your Game Infos</h3>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="section-heading">
+                <div class="line-dec"></div>
+                    <h3>Game Infos</h3>
                 </div>
-              </div>
-                            <table class="table">
+            </div>
+                            <table class="table" style="color: white;">
                                 <div class="col-12">
                                 <div class="table-responsive">
-                                <table class="table">
+                                <table class="table" style="color: white;">
                                 <thead>
                                     <tr>
                                         <th scope="col">Name</th>
@@ -31,14 +31,14 @@
                                         <td>{{ game.description }}</td>
                                         <td>{{ game.price }} DT</td>
                                         <td>{{ game.date ? game.date|date('Y-m-d H:i:s') : '' }}</td>
-                                        <td>  <form action="{{path('app_payment')}}" method="post">
+                                        <td>  <form action="{{path('app_payment', {'id': game.id})}}" method="post">
             
                                             <input type="hidden" name="token"  value="{{csrf_token('myform')}}">
 
                                             <input type="hidden" name="amount"  value="{{game.price}}">
 
                                             <button class="btn">
-                                            <span>Pay with paypal</span>
+                                            <span style="color: white;">Pay with paypal</span>
                                             </button>
                                     </form></td>
                                     </tr>
@@ -46,22 +46,14 @@
                                     </table>
                                     </div>
                                     </div>
-                                </div>
                                
                                 </table>
-
-
                                           
-                                </div>
-                                </div>
-                            </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                            </div>
-                        </div>
+        </div>
+    </div>
+</div>
+
+                            
 
                            
 {% endblock %}
