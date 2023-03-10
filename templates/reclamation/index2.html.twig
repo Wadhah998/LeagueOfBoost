@@ -1,0 +1,51 @@
+{% extends 'backOffice.html.twig' %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+        {{ form_start(ReclamationFilterType) }}
+        {{ form_widget(ReclamationFilterType) }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+        {{ form_end(ReclamationFilterType) }}
+
+        <tr>
+            <th style="color: #FFFFFF">User</th>
+            <th style="color: #FFFFFF">Date</th>
+            <th style="color: #FFFFFF">Theme</th>
+            <th style="color: #FFFFFF">Object</th>
+            <th style="color: #FFFFFF">Status</th>
+            <th style="color: #FFFFFF"></th>
+        </tr>
+        </thead>
+
+
+        <tbody>
+
+
+        {% for reclamation in reclamations %}
+
+            <tr>
+                <td style="color: #FFFFFF">{{ reclamation.user.username }}</td>
+                <td style="color: #FFFFFF">{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</td>
+                <td style="color: #FFFFFF">{{ reclamation.theme }}</td>
+                <td style="color: #FFFFFF">{{ reclamation.object }}</td>
+                <td style="color: #FFFFFF">{{ reclamation.etat ? 'Saved successfully' : 'On hold' }}</td>
+                <td>
+                    <a href="{{ path('app_reclamation_show_a', {'id': reclamation.id}) }}">Show</a>
+                    <form method="post" action="{{ path('app_reclamation_delete2', {'id': reclamation.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete2' ~ reclamation.id) }}">
+                        <button class="btn">Delete</button>
+                    </form>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7" style="color: #d41414">No reclamations found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

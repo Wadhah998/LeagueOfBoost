@@ -1,0 +1,110 @@
+{% extends 'backOffice.html.twig' %}
+
+
+{% block body %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ reclamation.id }}</td>
+        </tr>
+        <tr>
+            <th>Date</th>
+            <td>{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</td>
+        </tr>
+
+        <tr>
+            <th>Theme</th>
+            <td>{{ reclamation.theme }}</td>
+        </tr>
+        <tr>
+            <th>Object</th>
+            <td>{{ reclamation.object }}</td>
+        </tr>
+        <tr>
+            <th>Text</th>
+            <td>{{ reclamation.text }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reclamation_index_all') }}">back to list</a>
+
+    <form method="post" action="{{ path('app_reclamation_edit_etat', {'id': reclamation.id}) }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('edit_etat' ~ reclamation.id) }}">
+        <div class="form-group">
+            <label for="etat">Etat:</label>
+            <select class="form-control" id="etat" name="etat">
+                <option value="0" {% if not reclamation.etat %}selected{% endif %}>On hold</option>
+                <option value="1" {% if reclamation.etat %}selected{% endif %}>Saved successfully</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+
+    <h2>Messages</h2>
+
+    {% if reclamation.messages is not empty %}
+        <table class="table" >
+
+            <tbody>
+            {% for message in reclamation.messages %}
+                <tr style="color: #FFFFFF">
+                    {% if message.user is not null %}
+                        <p style="color: #FFFFFF">{{ message.user.username }} the {{ message.date ? message.date|date('Y-m-d') : '' }}:</p>
+
+
+                    {% else %}
+                        <p style="color: #FFFFFF">Posted by Unknown User</p>
+                    {% endif %}
+                    <p style="color: #FFFFFF">   {{ message.message }} </p>
+
+                    <form method="post" action="{{ path('app_message_delete_a', {'id': message.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_a' ~ message.id) }}">
+                        <button class="btn">Delete</button>
+                    </form>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No messages found for this reclamation.</p>
+    {% endif %}
+
+    <h2>Add Message</h2>
+
+    {{ form_start(messageForm) }}
+    {{ form_row(messageForm.message) }}
+    {{ form_widget(messageForm) }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+    {{ form_end(messageForm) }}
+
+
+
+
+    {% if reclamation.ratings is not empty %}
+        <table class="table">
+
+
+            {% for rating in reclamation.ratings %}
+                <tr>
+                    <br>
+                    <br>
+                    <br>
+                    <h4 style="color: #d41414">The user rated your services {{ rating.value }} stars. </h4>
+                </tr>
+            {% endfor %}
+
+        </table>
+    {% else %}
+        <br>
+        <br>
+        <br>
+        <p style="color: #d41414">The user did not rate your services yet.</p>
+    {% endif %}
+
+
+
+{% endblock %}

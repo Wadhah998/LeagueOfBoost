@@ -39,6 +39,33 @@ class ReclamationRepository extends ServiceEntityRepository
         }
     }
 
+    public function filterBy($theme,$etat)
+    {
+        $queryBuilder = $this->createQueryBuilder('c');
+
+        if ($theme !== null) {
+            $queryBuilder
+                ->andWhere('c.theme = :theme')
+                ->setParameter('theme', $theme);
+        }
+        if ($etat !== null) {
+            $queryBuilder
+                ->andWhere('c.etat = :etat')
+                ->setParameter('etat', $etat);
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+
+
+
+
+
+
+
+
+
 //    /**
 //     * @return Reclamation[] Returns an array of Reclamation objects
 //     */

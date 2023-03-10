@@ -52,7 +52,7 @@ https://templatemo.com/tm-577-liberty-market
                         <li><a href="{{path('app_game_index')}}">League Of Games</a></li>
                         {% if app.user %}
                             <li><a href="{{path('app_reclamation_new')}}">Make a report</a></li>
-                            <li><a href="{{ path('app_user_edit', {'id': app.user.id}) }}.html">profile</a></li>
+                            <li><a href="{{ path('app_user_show', {'id': app.user.id}) }}.html">profile</a></li>
                             <li><a href="{{ path('app_logout') }}">logout</a></li>
 
                         {% else %}
