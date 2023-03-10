@@ -1,0 +1,10 @@
+{% extends 'frontOffice.html.twig' %}
+
+{% block body %}
+    <h1>Edit SessionBoosting</h1>
+
+    {{ include('session_boosting/_form.html.twig', {'button_label': 'Update'}) }}
+
+   <a href="{{ path('app_user_show_dashboard', {'id': app.user.id}) }}" class="btn btn-primary btn-lg "> back to list </a>
+    {{ include('session_boosting/_delete_form.html.twig') }}
+{% endblock %}

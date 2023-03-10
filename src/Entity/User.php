@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -55,6 +57,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?bool $disponibility = null;
+
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: SessionBoosting::class)]
+    private Collection $sessionBoostings;
+
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: ReservationBooster::class)]
+    private Collection $reservationBoosters;
+
+    public function __construct()
+    {
+        $this->sessionBoostings = new ArrayCollection();
+        $this->reservationBoosters = new ArrayCollection();
+    }
 
 
 
@@ -258,6 +272,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDisponibility(?bool $disponibility): self
     {
         $this->disponibility = $disponibility;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SessionBoosting>
+     */
+    public function getSessionBoostings(): Collection
+    {
+        return $this->sessionBoostings;
+    }
+
+    public function addSessionBoosting(SessionBoosting $sessionBoosting): self
+    {
+        if (!$this->sessionBoostings->contains($sessionBoosting)) {
+            $this->sessionBoostings->add($sessionBoosting);
+            $sessionBoosting->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSessionBoosting(SessionBoosting $sessionBoosting): self
+    {
+        if ($this->sessionBoostings->removeElement($sessionBoosting)) {
+            // set the owning side to null (unless already changed)
+            if ($sessionBoosting->getUser() === $this) {
+                $sessionBoosting->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ReservationBooster>
+     */
+    public function getReservationBoosters(): Collection
+    {
+        return $this->reservationBoosters;
+    }
+
+    public function addReservationBooster(ReservationBooster $reservationBooster): self
+    {
+        if (!$this->reservationBoosters->contains($reservationBooster)) {
+            $this->reservationBoosters->add($reservationBooster);
+            $reservationBooster->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservationBooster(ReservationBooster $reservationBooster): self
+    {
+        if ($this->reservationBoosters->removeElement($reservationBooster)) {
+            // set the owning side to null (unless already changed)
+            if ($reservationBooster->getUser() === $this) {
+                $reservationBooster->setUser(null);
+            }
+        }
 
         return $this;
     }

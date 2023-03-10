@@ -3,20 +3,122 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\ReservationBooster;
+use App\Form\ReservationBoosterType;
+use App\Repository\ReservationBoosterRepository;
 use App\Form\BoosterType;
 use App\Form\CoachType;
 use App\Form\RegistrationFormType;
 use App\Form\UserType;
 use App\Repository\CoachRepository;
+use App\Entity\SessionBoosting;
+use App\Form\SessionBoostingType;
+use App\Repository\SessionBoostingRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\PriceFilterType;
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
+    #[Route('/booster', name: 'app_user_listebooster', methods: ['GET','POST'])]
+    public function listebooster(Request $request,UserRepository $userRepository): Response
+    {
+        $form = $this->createFormBuilder()
+            ->add('prixmax', TextType::class, [
+                'required' => false,
+                'label' => 'prixmax',
+                'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('prixmin', TextType::class, [
+                'required' => false,
+                'label' => 'prixmin',
+                'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('Rang', ChoiceType::class,[
+                'choices' => [
+                    'Aucun filtre' => null,
+                    'Master' => 'Master',
+                    'Grandmaster' => 'Grandmaster',
+                    'Challenger' => 'Challenger',],
+                    'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('Voie', ChoiceType::class,[
+                'choices' => [
+                    'Aucun filtre' => null,
+                    'Toplaner' => 'Toplaner',
+                    'Jungler' => 'Jungler',
+                    'Midlaner' => 'Midlaner',
+                    'Support' => 'Support',
+                    'ADCarry' => 'ADCarry',],
+                    'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('filter', SubmitType::class, [
+                'label' => 'Filter'
+            ])
+            ->getForm();
+    
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $prixmax = $form->get('prixmax')->getData();
+            $prixmin = $form->get('prixmin')->getData();
+            $rang = $form->get('Rang')->getData();
+            $voie = $form->get('Voie')->getData();
+            
+            $users = $userRepository->filterByPrice($prixmax,$rang,$voie,$prixmin);
+            return $this->render('user/listebooster.html.twig', [
+                'form' => $form->createView(),
+                'users' => $users,
+            ]);
+        }
+        return $this->render('user/listebooster.html.twig', [
+            'form' => $form->createView(),
+            'users' => $userRepository->findAll(),
+        ]);
+    
+    }
+    #[Route('/session', name: 'app_user_listesessionbooster', methods: ['GET','POST'])]
+    public function listeSessionBooster(Request $request, UserRepository $userRepository, SessionBoostingRepository $sessionBoostingRepository): Response
+    {
+        $form = $this->createFormBuilder()
+            ->add('prixmax', TextType::class, [
+                'required' => false,
+                'label' => 'prixmax',
+                'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('prixmin', TextType::class, [
+                'required' => false,
+                'label' => 'prixmin',
+                'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('filter', SubmitType::class, [
+                'label' => 'Filter'
+            ])
+            ->getForm();
+    
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $prixmax = $form->get('prixmax')->getData();
+            $prixmin = $form->get('prixmin')->getData();
+    
+            $session_boostings = $sessionBoostingRepository->findAll($prixmax, $prixmin);
+        } else {
+            $session_boostings = $sessionBoostingRepository->findAll();
+        }
+    
+        return $this->render('user/listesessionbooster.html.twig', [
+            'form' => $form->createView(),
+            'session_boostings' => $session_boostings,
+        ]);
+    }
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
@@ -167,5 +269,13 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_BoosterDemande', [], Response::HTTP_SEE_OTHER);
     }
-
+    #[Route('/booster/dashboard/{id}', name: 'app_user_show_dashboard', methods: ['GET'])]
+    public function showDashboard(User $user,SessionBoostingRepository $sessionBoostingRepository,ReservationBoosterRepository $reservationBoosterRepository): Response
+    {
+        return $this->render('user/boosterdashboard.html.twig', [
+            'user' => $user,
+            'session_boostings' => $sessionBoostingRepository->findAll(),
+            'reservation_boosters' => $reservationBoosterRepository->findAll(),
+        ]);
+    }
 }
