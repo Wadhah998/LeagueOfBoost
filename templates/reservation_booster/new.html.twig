@@ -1,0 +1,8 @@
+{% extends 'frontOffice.html.twig' %}
+{% block body %}
+    <h1>Create new ReservationBooster</h1>
+
+    {{ include('reservation_booster/_form.html.twig') }}
+
+    <a href="{{ path('app_user_listebooster') }}" class="btn btn-primary btn-lg ">back to list</a>
+{% endblock %}

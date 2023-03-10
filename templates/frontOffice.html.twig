@@ -51,11 +51,19 @@
                     <ul class="nav">
                         <li><a href="{{path('app_home')}}" class="active">Home</a></li>
                         <li><a href="explore.html">Coaching</a></li>
-                        <li><a href="#">Boosting</a></li>
+
+
+                        {% if app.user %}
+                            {% if is_granted('ROLE_BOOSTER') %}
+                            <li><a href="{{path('app_user_show_dashboard',{'id': app.user.id})}}">Dashbord</a></li>
+                            
+                        {% else %}
+                        <li><a href="{{path('app_user_listebooster')}}">Boosting</a></li>
+                        
+                        {% endif %}
+                        {% endif %}
                         <li><a href="{{path('app_game_index')}}">League Of Games</a></li>
                         {% if app.user %}
-
-
                             {% if is_granted('ROLE_ADMIN') %}
                               <li><a href="{{ path('app_game_admin') }}">Dashbord</a></li>
                               {% else %}

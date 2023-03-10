@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Payment;
+
+use App\Entity\Game;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Omnipay\Omnipay;
 use Symfony\Component\HttpFoundation\Response;
@@ -85,6 +88,7 @@ public function payment(Request $request): Response
     #[Route('/success', name: 'app_success')]
     public function success(Request $request): Response
     {
+
        if($request->query->get('paymentId') && $request->query->get('PayerID'))
        {
          $operation=$this->passerelle->completePurchase(array(
@@ -136,7 +140,9 @@ public function payment(Request $request): Response
        {
         return $this->render('Operation/success.html.twig',
               [
+
                 'message'=>'l\'utilisateur a annulé son paiement'
+
               ]
               );
        }

@@ -1,0 +1,140 @@
+{% extends 'frontOffice.html.twig' %}
+
+{% block body %}
+    <div class="currently-market">
+        <div class="container">
+            <div class="col-lg-12">
+
+
+                    <h2 <span style="text-align: center; color: purple;">Welcome </span> <span style="color: white;"> to your dashboard </span>
+                    </h2>
+                
+            </div>
+            <div class="col-lg-12">
+                    <h2 <span style="text-align: right; color: purple;">Solde : </span> <span style="color: white;"> {{ app.user.Solde }} dt</span></h2>
+                
+            </div>
+                <div class="col-lg-7" style="display: flex;">
+                    <div class="left-image">
+                        <br>
+
+                        <br>
+                        <br>
+
+                        <img src="../../../assets/images/market-01.jpg" alt="" style="border-radius: 200px; width: 200px;">
+                    </div>
+                    <div class="col-lg-1">
+                    </div>
+                    <div class="col-lg-9">
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <h2><span style="color: purple;"> Booster </span> {{ app.user.username }} <h2>
+                        <br>
+                        <h4> <span style="color: purple;">Description : </span>{{ app.user.Description }}</h4>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <h4> <span style="color: purple;">Prix : </span>{{ app.user.Prix }} dt</h4>
+                    </div>
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col-lg-4">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                        <a href="{{ path('app_session_boosting_new', {'id': app.user.id}) }}" class="btn btn-primary btn-lg "> Create new Session </a>
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
+          <h1>Vos Session</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="color: white;">Id</th>
+                <th style="color: white;">Titre</th>
+                <th style="color: white;">Description</th>
+                <th style="color: white;">Nbr_heure</th>
+                <th style="color: white;">Prix</th>
+                <th style="color: white;">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for session_boosting in session_boostings %}
+        {% if session_boosting.User.id == app.user.id %}
+            <tr>
+                <td style="color: white;">{{ session_boosting.id }}</td>
+                <td style="color: white;">{{ session_boosting.Titre }}</td>
+                <td style="color: white;">{{ session_boosting.Description }}</td>
+                <td style="color: white;">{{ session_boosting.NbrHeure }}</td>
+                <td style="color: white;">{{ session_boosting.Prix }}</td>
+                <td>
+                    <a href="{{ path('app_session_boosting_show', {'id': session_boosting.id}) }}" class="btn btn-primary btn-lg">show</a>
+                    <a href="{{ path('app_session_boosting_edit', {'id': session_boosting.id}) }}" class="btn btn-warning btn-lg">edit</a>
+                     <a href="{{ path('app_session_boosting_delete', {'id': session_boosting.id}) }}" class="btn btn-dangeré btn-lg">delete</a>
+                </td>
+            </tr>
+             {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+      <h1>Vos Reservation</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="color: white;">Id</th>
+                <th style="color: white;">Oldrank</th>
+                <th style="color: white;">Newrank</th>
+                <th style="color: white;">Prix</th>
+                <th style="color: white;">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation_booster in reservation_boosters %}
+        {% if reservation_booster.User.id == app.user.id %}
+            <tr>
+                <td style="color: white;">{{ reservation_booster.id }}</td>
+                <td style="color: white;">{{ reservation_booster.Oldrank }}</td>
+                <td style="color: white;">{{ reservation_booster.Newrank }}</td>
+                <td style="color: white;">{{ reservation_booster.Prix }}</td>
+                <td>
+                    <a href="{{ path('app_reservation_booster_show', {'id': reservation_booster.id}) }}">show</a>
+                    <a href="{{ path('app_reservation_booster_edit', {'id': reservation_booster.id}) }}">edit</a>
+                </td>
+            </tr>
+                         {% endif %}
+
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        {% endblock %}
