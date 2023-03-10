@@ -1,0 +1,76 @@
+{% extends '/backOffice.html.twig' %}
+
+{% block title %}New Actualite{% endblock %}
+
+{% block body %}
+   <div class="new-act">
+    <h1>Create new Actualite</h1>
+
+    {{ include('actualite/_form.html.twig') }}
+
+    <a href="{{ path('app_actualite_index') }}">back to list</a>
+    </div>
+<style>
+button{
+  margin:20px 0 0 0;
+  border-radius:20px;
+   background:white;
+   
+  
+  
+}
+.new-act{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    margin:10px 0 0 10px;
+
+}
+
+#actualite_Description {
+  font-weight: 500;
+  font-size: 14px;
+  width:400px;
+  height: 40px;
+  
+  border-radius: 10px;
+  padding-left: 10px;
+  border: none;
+  border-bottom: 1px solid #e5e5e5;
+  outline: none;
+}
+
+#actualite_Description {
+  border-bottom: 1px solid #6941c6;
+  -webkit-transition: 0.1s;
+  transition: 0.5s;
+}
+
+
+#actualite_Titre {
+  font-weight: 500;
+  font-size: 14px;
+  height: 40px;
+  width:400px;
+  border-radius: 10px;
+  padding-left: 10px;
+  border: none;
+  border-bottom: 1px solid #e5e5e5;
+  outline: none;
+}
+
+#actualite_Titre {
+  border-bottom: 1px solid #6941c6;
+  -webkit-transition: 0.1s;
+  transition: 0.5s;
+}
+label{
+  color:gray;
+  display: block;
+  margin-bottom : 10px;
+  margin:10px 0 0 10px;
+
+}
+</style>
+{% endblock %}
