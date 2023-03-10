@@ -140,8 +140,11 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/lexer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bootstrap/css" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bootstrap/js" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/google/recaptcha" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/karser/karser-recaptcha3-bundle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Chart.js" level="application" />
   </component>
 </module>

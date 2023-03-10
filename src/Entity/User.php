@@ -56,7 +56,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?bool $disponibility = null;
 
-
+    #[ORM\Column(type:'string' ,length: 100 , nullable: true)]
+    private ?string $resetToken;
 
     public function getId(): ?int
     {
@@ -261,5 +262,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * @param string|null $resetToken
+     */
+    public function setResetToken(?string $resetToken): void
+    {
+        $this->resetToken = $resetToken;
+    }
+
 
 }
