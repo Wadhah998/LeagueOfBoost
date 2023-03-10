@@ -47,12 +47,14 @@
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                         <li><a href="{{path('app_home')}}" class="active">Home</a></li>
-                        <li><a href="explore.html">Coaching</a></li>
+                        {% if is_granted('ROLE_COACH') %}
+                        <li><a href="{{ path('app_user_show_dashboard', {'id': app.user.id}) }}">Your Dashboard</a></li>
+                            {% else %}
+                            <li><a href="{{ path('app_user_listecoach')}}">Coaching</a></li>
+                        {% endif %}
                         <li><a href="#">Boosting</a></li>
                         <li><a href="{{path('app_game_index')}}">League Of Games</a></li>
                         {% if app.user %}
-
-
                             {% if is_granted('ROLE_ADMIN') %}
                               <li><a href="{{ path('app_game_admin') }}">Dashbord</a></li>
                               {% else %}

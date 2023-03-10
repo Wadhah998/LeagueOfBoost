@@ -3,19 +3,121 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserType;
+use App\Repository\UserRepository;
+use App\Entity\ReservationC;
+use App\Form\ReservationCType;
+use App\Repository\ReservationCRepository;
+use App\Entity\SessionCoaching;
+use App\Form\SessionCoachingType;
+use App\Repository\SessionCoachingRepository;
 use App\Form\CoachType;
 use App\Form\RegistrationFormType;
-use App\Form\UserType;
 use App\Repository\CoachRepository;
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\PriceFilterType;
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
+    #[Route('/coach', name: 'app_user_listecoach', methods: ['GET','POST'])]
+    public function listeCoach(Request $request,UserRepository $userRepository): Response
+    {
+        $form = $this->createFormBuilder()
+            ->add('prixmax', TextType::class, [
+                'required' => false,
+                'label' => 'prixmax',
+                'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('prixmin', TextType::class, [
+                'required' => false,
+                'label' => 'prixmin',
+                'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('Rang', ChoiceType::class,[
+                'choices' => [
+                    'Aucun filtre' => null,
+                    'Master' => 'Master',
+                    'Grandmaster' => 'Grandmaster',
+                    'Challenger' => 'Challenger',],
+                    'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('Voie', ChoiceType::class,[
+                'choices' => [
+                    'Aucun filtre' => null,
+                    'Toplaner' => 'Toplaner',
+                    'Jungler' => 'Jungler',
+                    'Midlaner' => 'Midlaner',
+                    'Support' => 'Support',
+                    'ADCarry' => 'ADCarry',],
+                    'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('filter', SubmitType::class, [
+                'label' => 'Filter'
+            ])
+            ->getForm();
+    
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $prixmax = $form->get('prixmax')->getData();
+            $prixmin = $form->get('prixmin')->getData();
+            $rang = $form->get('Rang')->getData();
+            $voie = $form->get('Voie')->getData();
+            
+            $users = $userRepository->filterByPrice($prixmax,$rang,$voie,$prixmin);
+            return $this->render('user/listecoach.html.twig', [
+                'form' => $form->createView(),
+                'users' => $users,
+            ]);
+        }
+        return $this->render('user/listecoach.html.twig', [
+            'form' => $form->createView(),
+            'users' => $userRepository->findAll(),
+        ]);
+    
+    }
+    #[Route('/session', name: 'app_user_listesession', methods: ['GET','POST'])]
+    public function listeSession(Request $request, UserRepository $userRepository, SessionCoachingRepository $sessionCoachingRepository): Response
+    {
+        $form = $this->createFormBuilder()
+            ->add('prixmax', TextType::class, [
+                'required' => false,
+                'label' => 'prixmax',
+                'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('prixmin', TextType::class, [
+                'required' => false,
+                'label' => 'prixmin',
+                'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('filter', SubmitType::class, [
+                'label' => 'Filter'
+            ])
+            ->getForm();
+    
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $prixmax = $form->get('prixmax')->getData();
+            $prixmin = $form->get('prixmin')->getData();
+    
+            $session_coachings = $sessionCoachingRepository->findAll($prixmax, $prixmin);
+        } else {
+            $session_coachings = $sessionCoachingRepository->findAll();
+        }
+    
+        return $this->render('user/listesession.html.twig', [
+            'form' => $form->createView(),
+            'session_coachings' => $session_coachings,
+        ]);
+    }
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
@@ -122,6 +224,15 @@ class UserController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_user_coachDemande', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/coach/dashboard/{id}', name: 'app_user_show_dashboard', methods: ['GET'])]
+    public function showDashboard(User $user,SessionCoachingRepository $sessionCoachingRepository,ReservationCRepository $reservationCRepository): Response
+    {
+        return $this->render('user/coachdashboard.html.twig', [
+            'user' => $user,
+            'session_coachings' => $sessionCoachingRepository->findAll(),
+            'reservation_cs' => $reservationCRepository->findALL(),
+        ]);
     }
 
 }

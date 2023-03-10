@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -52,6 +54,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?int $prix = null;
+
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: SessionCoaching::class)]
+    private Collection $sessionCoachings;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ReservationC::class)]
+    private Collection $reservationCs;
+
+    public function __construct()
+    {
+        $this->sessionCoachings = new ArrayCollection();
+        $this->reservationCs = new ArrayCollection();
+    }
 
 
 
@@ -243,6 +257,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrix(?int $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SessionCoaching>
+     */
+    public function getSessionCoachings(): Collection
+    {
+        return $this->sessionCoachings;
+    }
+
+    public function addSessionCoaching(SessionCoaching $sessionCoaching): self
+    {
+        if (!$this->sessionCoachings->contains($sessionCoaching)) {
+            $this->sessionCoachings->add($sessionCoaching);
+            $sessionCoaching->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSessionCoaching(SessionCoaching $sessionCoaching): self
+    {
+        if ($this->sessionCoachings->removeElement($sessionCoaching)) {
+            // set the owning side to null (unless already changed)
+            if ($sessionCoaching->getUser() === $this) {
+                $sessionCoaching->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ReservationC>
+     */
+    public function getReservationCs(): Collection
+    {
+        return $this->reservationCs;
+    }
+
+    public function addReservationC(ReservationC $reservationC): self
+    {
+        if (!$this->reservationCs->contains($reservationC)) {
+            $this->reservationCs->add($reservationC);
+            $reservationC->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservationC(ReservationC $reservationC): self
+    {
+        if ($this->reservationCs->removeElement($reservationC)) {
+            // set the owning side to null (unless already changed)
+            if ($reservationC->getUser() === $this) {
+                $reservationC->setUser(null);
+            }
+        }
 
         return $this;
     }
