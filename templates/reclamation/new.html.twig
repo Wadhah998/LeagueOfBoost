@@ -12,8 +12,7 @@
                 <div class="section-heading">
                     <div class="row">
 
-                        {{ form_start(form, {'attr': {'id': 'contact'}}) }}
-
+                        {{ form_start(form, {'attr': {'id': 'contact', 'enctype': 'multipart/form-data'}}) }}
                         <div class="col-lg-12">
 
                             <span id="label-text">{{ form_label(form.theme) }}</span>
@@ -42,13 +41,17 @@
 
 
 
+
+
+                        <div class="col-lg-12" >
+                            <fieldset>
+                                <button  type="submit"  class="orange-button">Report</button>
+                            </fieldset>
+                        </div>
+
                     </div>
 
-                    <div class="col-lg-12">
-                        <fieldset>
-                            <button  type="submit"  class="orange-button">Report</button>
-                        </fieldset>
-                    </div>
+
 
 
 
@@ -59,4 +62,9 @@
         </div>
     </div>
     {{ form_end(form) }}
+
+
+
+
+
 {% endblock %}

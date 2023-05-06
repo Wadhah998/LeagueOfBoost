@@ -63,7 +63,7 @@
                             {% if app.user.username=="admin" %}
                                 <li><a href="{{ path('app_user_index') }}">Dashbord</a></li>
                             {% else %}
-                                <li><a href="#">Make a report</a></li>
+                                <li><a href="{{path('app_reclamation_new')}}">Make a report</a></li>
                             {% endif %}
                             <li><a href="{{ path('app_user_show', {'id': app.user.id}) }}"> profile</a></li>
 

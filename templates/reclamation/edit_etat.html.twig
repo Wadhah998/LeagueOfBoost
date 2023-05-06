@@ -1,0 +1,11 @@
+{% extends 'backOffice.html.twig' %}
+
+{% block body %}
+    <h1>Edit Reclamation</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.etat) }}
+    {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+{% endblock %}
+
