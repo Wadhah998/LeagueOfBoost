@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TeamRepository::class)]
+
 class Team
 {
     #[ORM\Id]
@@ -27,9 +28,6 @@ class Team
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'team', targetEntity: Player::class)]
-    private Collection $player;
-
     #[ORM\Column(length: 255)]
     private ?string $player1 = null;
 
@@ -44,6 +42,12 @@ class Team
 
     #[ORM\Column(length: 255)]
     private ?string $player5 = null;
+
+    #[ORM\Column]
+    private ?int $wins = null;
+
+    #[ORM\Column]
+    private ?int $losses = null;
 
     public function __construct()
     {
@@ -87,36 +91,6 @@ class Team
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Player>
-     */
-    public function getPlayer(): Collection
-    {
-        return $this->player;
-    }
-
-    public function addPlayer(Player $player): self
-    {
-        if (!$this->player->contains($player)) {
-            $this->player->add($player);
-            $player->setTeam($this);
-        }
-
-        return $this;
-    }
-
-    public function removePlayer(Player $player): self
-    {
-        if ($this->player->removeElement($player)) {
-            // set the owning side to null (unless already changed)
-            if ($player->getTeam() === $this) {
-                $player->setTeam(null);
-            }
-        }
 
         return $this;
     }
@@ -177,6 +151,30 @@ class Team
     public function setPlayer5(string $player5): self
     {
         $this->player5 = $player5;
+
+        return $this;
+    }
+
+    public function getWins(): ?int
+    {
+        return $this->wins;
+    }
+
+    public function setWins(int $wins): self
+    {
+        $this->wins = $wins;
+
+        return $this;
+    }
+
+    public function getLosses(): ?int
+    {
+        return $this->losses;
+    }
+
+    public function setLosses(int $losses): self
+    {
+        $this->losses = $losses;
 
         return $this;
     }
