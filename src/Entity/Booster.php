@@ -8,21 +8,24 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BoosterRepository::class)]
-class Booster extends User
+class Booster
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    protected ?int $id = null;
 
     #[ORM\OneToMany(mappedBy: 'booster', targetEntity: ReservationB::class)]
     private Collection $reservation;
 
+
+
     public function __construct()
     {
-        parent::__construct();
+
         $this->reservation = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -58,4 +61,6 @@ class Booster extends User
 
         return $this;
     }
+
+   
 }

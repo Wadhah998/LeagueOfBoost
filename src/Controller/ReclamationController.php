@@ -60,7 +60,7 @@ class ReclamationController extends AbstractController
         $reclamation = new Reclamation();
         $reclamation->setUser($user);
         return $this->render('reclamation/index.html.twig', [
-                'reclamations' => $reclamationRepository->findBy(['user' => $user]),
+            'reclamations' => $reclamationRepository->findBy(['user' => $user]),
         ]);
 
     }
@@ -100,6 +100,15 @@ class ReclamationController extends AbstractController
 
         // Create the message and rating forms
         $messageForm = $this->createForm(MessageType::class, $message);
+        $messageForm->handleRequest($request);
+        if ($messageForm->isSubmitted() && $messageForm->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($message);
+            $entityManager->flush();
+            $this->addFlash('success', 'Your message has been submitted.');
+            return $this->redirectToRoute('app_reclamation_show', ['id' => $reclamation->getId()]);
+        }
+
         $form = $this->createFormBuilder()
             ->add('value', ChoiceType::class, [
                 'label' => 'Score:',

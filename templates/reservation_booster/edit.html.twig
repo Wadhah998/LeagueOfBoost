@@ -1,0 +1,11 @@
+{% extends 'frontOffice.html.twig' %}
+
+{% block body %}
+    <h1>Edit ReservationBooster</h1>
+
+    {{ include('reservation_booster/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_user_listebooster') }}" class="btn btn-primary btn-lg ">back to list</a>
+
+    {{ include('reservation_booster/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends '/frontOffice.html.twig' %}
+{% block title %}Commentaire{% endblock %}
+  
+{% block body %}
+<div class="show-commt">
+    <h1>Commentaire</h1>
+
+    <table class="table" >
+        <tbody>
+            <tr style="color: white;">
+                <th>Id</th>
+                <td>{{ commentaire.id }}</td>
+            </tr>
+            <tr style="color: white;">
+                <th>Comment</th>
+                <td>{{ commentaire.comment }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button style="background-color: #8A2BE2; color: white; padding: 10px 20px; border-radius: 5px; border: none;">Back to List</button>
+
+
+    /
+
+    <a href="{{ path('app_commentaire_edit', {'id': commentaire.id}) }}">edit</a>
+    
+    </div>
+{% endblock %}
+
+
+
+
+
+

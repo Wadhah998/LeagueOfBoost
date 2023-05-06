@@ -1,0 +1,74 @@
+{% extends '/backOffice.html.twig' %}
+
+
+
+{% block body %}
+    <div class="container-fluid pt-4 px-20">
+        <div class="row g-4">
+            <div class="col-sm-20 col-xl-20">
+                <div class="bg-secondary rounded h-100 p-4">
+
+                    <table class="table">
+                        <div class="col-12">
+                            <div class="bg-secondary rounded h-100 p-4">
+                                <h6 class="mb-4" style="text-align: center" >Booster demands</h6>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+
+                                        <tr>
+                                            <th style="text-align: center;color: #FFFFFF" scope="col">Id</th>
+                                            <th style="text-align: center ;color: #FFFFFF " scope="col">First Name</th>
+                                            <th style="text-align: center ;color: #FFFFFF"  scope="col">Last Name</th>
+                                            <th style="text-align: center ;color: #FFFFFF" scope="col">Email</th>
+                                            <th style="text-align: center ;color: #FFFFFF" scope="col">Username</th>
+                                            <th style="text-align: center ;color: #FFFFFF" scope="col">solde</th>
+                                            <th style="text-align: center ;color: #FFFFFF" scope="col">prix</th>
+                                            <th style="text-align: center ;color: #FFFFFF" scope="col">lienOpgg</th>
+                                            <th style="text-align: center ;color: #FFFFFF" scope="col">Voie</th>
+                                            <th  class="text-danger" style="text-align: center" scope="col">Delete</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for user in users %}
+
+                                            {% if user.voie != null %}
+                                                {% if user.roles == ['ROLE_USER'] %}
+                                                    {% if user.disponibility != null %}
+                                                        <tr>
+                                                        {% if user.username != "admin" %}
+
+                                                            <th style="text-align: center" scope="row">{{ user.id }}</th>
+                                                            <td style="text-align: center" >{{ user.firstname }}</td>
+                                                            <td style="text-align: center" >{{ user.lastname }}</td>
+                                                            <td style="text-align: center">{{ user.email }}</td>
+                                                            <td style="text-align: center" >{{ user.username }}</td>
+                                                            <td style="text-align: center" >{{ user.solde }}</td>
+                                                            <td style="text-align: center" >{{ user.prix }}</td>
+                                                            <td style="text-align: center" >{{ user.lienOpgg}}</td>
+                                                            <td style="text-align: center" >{{ user.voie}}</td>
+                                                            <td style="text-align: center" >
+
+                                                                <a href="{{ path('edit_user_role_booster', {'id': user.id}) }}" class="btn-danger"> accept </a>
+                                                            </td>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %} {% endif %}
+
+
+                                            </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </table></div></div></div></div>
+
+
+
+    <!-- Table End -->
+{% endblock %}

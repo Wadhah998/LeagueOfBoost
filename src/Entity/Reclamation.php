@@ -31,11 +31,7 @@ class Reclamation
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $text = null;
-////////////////////////////////////////////
 
-
-
-//////////////////////////////////////////////
     #[ORM\ManyToOne(inversedBy: 'reclamations')]
     private ?User $user = null;
 
@@ -44,10 +40,8 @@ class Reclamation
     private Collection $messages;
 
     #[ORM\OneToMany(mappedBy: 'reclamation', targetEntity: Rating::class)]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     private Collection $ratings;
-
-
-
 
 
     public function __construct()
@@ -120,12 +114,7 @@ class Reclamation
 
         return $this;
     }
-    /////////////////////////////////////////////
-    ///
-    ///
 
-
-    //////////////////////////////////////////
 
 
 

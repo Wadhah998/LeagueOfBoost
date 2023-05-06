@@ -40,24 +40,51 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column]
-    private ?bool $activated = false;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $voie = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reclamation::class)]
-    private Collection $reclamations;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lienOpgg = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $solde = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $prix = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $disponibility = null;
+
+
+    #[ORM\Column(type:'string' ,length: 100 , nullable: true)]
+    private ?string $resetToken;
+
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: SessionBoosting::class)]
+    private Collection $sessionBoostings;
+
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: ReservationBooster::class)]
+    private Collection $reservationBoosters;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Message::class)]
     private Collection $messages;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reclamation::class)]
+    private Collection $reclamations;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Rating::class)]
     private Collection $ratings;
 
     public function __construct()
     {
-        $this->reclamations = new ArrayCollection();
-        $this->messages = new ArrayCollection();
+        $this->sessionBoostings = new ArrayCollection();
+        $this->reservationBoosters = new ArrayCollection();
         $this->ratings = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -179,42 +206,131 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isActivated(): ?bool
+
+
+    public function __toString(): string
     {
-        return $this->activated;
+        return $this->firstname.
+            $this->lastname.
+            $this->email.
+            $this->username.
+            $this->password;
+
     }
 
-    public function setActivated(bool $activated): self
+    public function getVoie(): ?string
     {
-        $this->activated = $activated;
+        return $this->voie;
+    }
+
+    public function setVoie(?string $voie): self
+    {
+        $this->voie = $voie;
+
+        return $this;
+    }
+
+    public function getLienOpgg(): ?string
+    {
+        return $this->lienOpgg;
+    }
+
+    public function setLienOpgg(?string $lienOpgg): self
+    {
+        $this->lienOpgg = $lienOpgg;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getSolde(): ?int
+    {
+        return $this->solde;
+    }
+
+    public function setSolde(?int $solde): self
+    {
+        $this->solde = $solde;
+
+        return $this;
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(?int $prix): self
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function isDisponibility(): ?bool
+    {
+        return $this->disponibility;
+    }
+
+    public function setDisponibility(?bool $disponibility): self
+    {
+        $this->disponibility = $disponibility;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Reclamation>
+
+     * @return string|null
      */
-    public function getReclamations(): Collection
+    public function getResetToken(): ?string
     {
-        return $this->reclamations;
+        return $this->resetToken;
     }
 
-    public function addReclamation(Reclamation $reclamation): self
+    /**
+     * @param string|null $resetToken
+     */
+    public function setResetToken(?string $resetToken): void
     {
-        if (!$this->reclamations->contains($reclamation)) {
-            $this->reclamations->add($reclamation);
-            $reclamation->setUser($this);
+        $this->resetToken = $resetToken;
+    }
+
+    /**
+     * @return Collection<int, SessionBoosting>
+     */
+    public function getSessionBoostings(): Collection
+    {
+        return $this->sessionBoostings;
+    }
+
+    public function addSessionBoosting(SessionBoosting $sessionBoosting): self
+    {
+        if (!$this->sessionBoostings->contains($sessionBoosting)) {
+            $this->sessionBoostings->add($sessionBoosting);
+            $sessionBoosting->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeReclamation(Reclamation $reclamation): self
+    public function removeSessionBoosting(SessionBoosting $sessionBoosting): self
     {
-        if ($this->reclamations->removeElement($reclamation)) {
+        if ($this->sessionBoostings->removeElement($sessionBoosting)) {
             // set the owning side to null (unless already changed)
-            if ($reclamation->getUser() === $this) {
-                $reclamation->setUser(null);
+            if ($sessionBoosting->getUser() === $this) {
+                $sessionBoosting->setUser(null);
             }
         }
 
@@ -222,29 +338,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Message>
+     * @return Collection<int, ReservationBooster>
      */
-    public function getMessages(): Collection
+    public function getReservationBoosters(): Collection
     {
-        return $this->messages;
+        return $this->reservationBoosters;
     }
 
-    public function addMessage(Message $message): self
+    public function addReservationBooster(ReservationBooster $reservationBooster): self
     {
-        if (!$this->messages->contains($message)) {
-            $this->messages->add($message);
-            $message->setUser($this);
+        if (!$this->reservationBoosters->contains($reservationBooster)) {
+            $this->reservationBoosters->add($reservationBooster);
+            $reservationBooster->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeMessage(Message $message): self
+    public function removeReservationBooster(ReservationBooster $reservationBooster): self
     {
-        if ($this->messages->removeElement($message)) {
+        if ($this->reservationBoosters->removeElement($reservationBooster)) {
             // set the owning side to null (unless already changed)
-            if ($message->getUser() === $this) {
-                $message->setUser(null);
+            if ($reservationBooster->getUser() === $this) {
+                $reservationBooster->setUser(null);
             }
         }
 
@@ -280,4 +396,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
 }

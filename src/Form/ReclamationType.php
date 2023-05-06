@@ -11,12 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\Regex;
 use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
 use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Vich\UploaderBundle\Entity\File as EmbeddedFile;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 
 
-#[Vich\Uploadable]
 class ReclamationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -30,9 +26,9 @@ class ReclamationType extends AbstractType
                     'Report a Bug' => 'Bug rep',
                     'Other' => 'Other',
                 ],
-                    'multiple' => false,
-                    'expanded' => false,
-                    'label' => 'Choose your theme',])
+                'multiple' => false,
+                'expanded' => false,
+                'label' => 'Choose your theme',])
             ->add('object', TextType::class, [
                 'constraints' => [
                     new Regex([

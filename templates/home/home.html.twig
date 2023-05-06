@@ -1,8 +1,220 @@
-{% extends '/frontOffice.html.twig' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block body %}
-  
+<head>
 
+    <meta charset="utf-8">
+    <meta name="author" content="templatemo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+    {% block css %}
+        <!-- Bootstrap core CSS -->
+        <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+
+
+        <!-- Additional CSS Files -->
+        <link rel="stylesheet" href="{{asset('assets/css/fontawesome.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/templatemo-liberty-market.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/owl.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/animate.css')}}">
+        <link rel="stylesheet"href="{{asset('https://unpkg.com/swiper@7/swiper-bundle.min.css')}}"/>
+
+    {% endblock %}
+    <!--
+
+    TemplateMo 577 Liberty Market
+
+    https://templatemo.com/tm-577-liberty-market
+
+    -->
+</head>
+
+<body>
+
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="{{path('app_home')}}" class="logo">
+                        <img src="../../assets/images/logo.png" alt="" weight="">
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        <li><a href="{{path('app_home')}}" class="active">Home</a></li>
+                        <li><a href="explore.html">Coaching</a></li>
+
+                        {% if app.user %}
+                            {% if is_granted('ROLE_BOOSTER') %}
+                                <li><a href="{{path('app_user_show_dashboard',{'id': app.user.id})}}">Dashbord</a></li>
+
+                            {% else %}
+                                <li><a href="{{path('app_user_listebooster')}}">Boosting</a></li>
+
+                            {% endif %}
+                        {% endif %}
+                        <li><a href="{{path('app_game_index')}}">League Of Games</a></li>
+                        {% if app.user %}
+                            {% if app.user.username=="admin" %}
+                                <li><a href="{{ path('app_user_index') }}">Dashbord</a></li>
+                            {% else %}
+                                <li><a href="#">Make a report</a></li>
+                            {% endif %}
+                            <li><a href="{{ path('app_user_show', {'id': app.user.id}) }}"> profile</a></li>
+
+
+                            <li><a href="{{ path('app_logout') }}">logout</a></li>
+
+                        {% else %}
+                            <li><a href="{{ path('app_login') }}">Join Us</a></li>
+                        {% endif %}
+                        {# {% if app.user.roles is NotBlank and app.user.roles == ROLE_ADMIN   %}
+
+                        <li><a href="{{ path('app_admin') }}"></a> Admin_Panel </li>
+                        {% endif %}#}
+
+                    </ul>
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ***** Header Area End ***** -->
+<div class="main-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 align-self-center">
+                <div class="header-text">
+                    <h6>League Of Boost</h6>
+                    <h2>Coaching, Boosting and Fun games with your team !</h2>
+                    <p>Liberty NFT Market is a really cool and professional design for your NFT websites. This HTML CSS template is based on Bootstrap v5 and it is designed for NFT related web portals. Liberty can be freely downloaded from TemplateMo's free css templates.</p>
+                    <div class="buttons">
+                        {% if app.user %}
+                            {% if  app.user.roles == ['ROLE_USER']  %}
+                                <div class="border-button">
+                                    <a href="{{ path('app_user_editcoach', {'id': app.user.id}) }}">Be a coach</a>
+                                </div>
+                                <div class="main-button">
+                                    <a href="{{ path('app_user_editBooster', {'id': app.user.id}) }}" >Be a booster</a>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <div class="owl-banner owl-carousel">
+                    <div class="item">
+                        <img src="../../assets/images/banner-01.png" alt="">
+                    </div>
+                    <div class="item">
+                        <img src="../../assets/images/banner-02.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ***** Main Banner Area End ***** -->
+<div class="page-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h6>Liberty NFT Market</h6>
+                <h2>Discover Some Top Items</h2>
+                <span>Home > <a href="#">Explore</a></span>
+            </div>
+
+            <div class="container-fluid">
+                {% for a in actualites %}
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-8 col-sm-10">
+                            <div class="item" style="margin:20px 0 20px 0 ; border : 2px solid rgba(255, 255, 255, 0.3);  border-radius: 20px ; padding: 15px; ">
+                                <h4 style="font-size: 24px; color: purple; font-weight: bold; margin :10px 0 10px 20px;">{{ a.titre }}</h4>
+                                <div class="thumb" style=" text-align: center;"  >
+                                    <img src="../../assets/images/featured-03.jpg" alt="" style="border-radius: 20%; margin-bottom : 15px;  max-width: 350px ;">
+                                    <div class="hover-effect">
+                                        <div class="content text-center">
+                                            <img src="../../assets/images/author.jpg" alt="" style="max-width: 50px; max-height: 50px; border-radius: 50%; margin-bottom: 10px;">
+                                            <p style="color: black; font-size: 18px;">{{ a.description }}</p>
+                                            <p style="margin -10px 0 0 0;"><a href="{{ path('app_actualite_show', { 'id': a.id }) }}" style="color: lightpurple;">View More</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+
+    <div class="categories-collections">
+
+    {% block body %}
+
+
+    {% endblock %}
+        </div>
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <p>League Of Legends is a trademark of Riot Games, INC. We are no way affiliated with, associated with or endorsed by Riot Games, INC.
+                <br>By using this website you constute acceptance terms of service and privacy policy. All copyrights, trade marks, service marks belong to the corresponding owners. <br> Copyright of © LEAGUE OF BOOST.EU 2022-2023 ALL RIGHTS RESERVED </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+{% block js %}
+    <!-- Scripts -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+    <script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="../../assets/js/isotope.min.js"></script>
+    <script src="../../assets/js/owl-carousel.js"></script>
+
+    <script src="../../assets/js/tabs.js"></script>
+    <script src="../../assets/js/popup.js"></script>
+    <script src="../../assets/js/custom.js"></script>
 
 {% endblock %}
+</body>
+</html>
+
+  
+
+  {% if  is_granted('ROLE_CHOACH')  %}
+<script>
+    var username = "{{ app.user.username }}";
+
+    alert("Hello " + username + ", your Demand to be a COACH has been successfully treated.");
+</script>
+{% endif %}
+    {% if  is_granted('ROLE_BOOSTER')  %}
+        <script>
+            var username = "{{ app.user.username }}";
+
+            alert("Hello " + username + ", your Demand to be a BOOSTER has been successfully treated.");
+        </script>
+    {% endif %}
+
+
 
