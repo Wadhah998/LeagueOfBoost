@@ -6,6 +6,7 @@ use App\Repository\ReclamationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
@@ -20,7 +21,7 @@ class Reclamation
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(nullable: true)]
-    private ?bool $etat = null;
+    private ?bool $etat = false;
 
     #[ORM\Column(length: 255)]
     private ?string $theme = null;
@@ -34,12 +35,19 @@ class Reclamation
     #[ORM\ManyToOne(inversedBy: 'reclamations')]
     private ?User $user = null;
 
-    #[ORM\OneToMany(mappedBy: 'reclamation', targetEntity: Message::class)]
-    private Collection $message;
+    #[ORM\OneToMany(mappedBy: 'reclamation', targetEntity: Message::class,)]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+    private Collection $messages;
+
+    #[ORM\OneToMany(mappedBy: 'reclamation', targetEntity: Rating::class)]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+    private Collection $ratings;
+
 
     public function __construct()
     {
-        $this->message = new ArrayCollection();
+        $this->messages = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,6 +115,9 @@ class Reclamation
         return $this;
     }
 
+
+
+
     public function getUser(): ?User
     {
         return $this->user;
@@ -122,27 +133,57 @@ class Reclamation
     /**
      * @return Collection<int, Message>
      */
-    public function getMessage(): Collection
+    public function getmessages(): Collection
     {
-        return $this->message;
+        return $this->messages;
     }
 
-    public function addMessage(Message $message): self
+    public function addMessage(Message $messages): self
     {
-        if (!$this->message->contains($message)) {
-            $this->message->add($message);
-            $message->setReclamation($this);
+        if (!$this->messages->contains($messages)) {
+            $this->messages->add($messages);
+            $messages->setReclamation($this);
         }
 
         return $this;
     }
 
-    public function removeMessage(Message $message): self
+    public function removeMessage(Message $messages): self
     {
-        if ($this->message->removeElement($message)) {
+        if ($this->messages->removeElement($messages)) {
             // set the owning side to null (unless already changed)
-            if ($message->getReclamation() === $this) {
-                $message->setReclamation(null);
+            if ($messages->getReclamation() === $this) {
+                $messages->setReclamation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rating>
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings->add($rating);
+            $rating->setReclamation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getReclamation() === $this) {
+                $rating->setReclamation(null);
             }
         }
 

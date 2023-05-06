@@ -20,8 +20,13 @@ class Message
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
-    #[ORM\ManyToOne(inversedBy: 'message')]
+    #[ORM\ManyToOne(inversedBy: 'messages')]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private ?Reclamation $reclamation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'messages')]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
+    private ?user $user = null;
 
     public function getId(): ?int
     {
@@ -60,6 +65,18 @@ class Message
     public function setReclamation(?Reclamation $reclamation): self
     {
         $this->reclamation = $reclamation;
+
+        return $this;
+    }
+
+    public function getUser(): ?user
+    {
+        return $this->user;
+    }
+
+    public function setUser(?user $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\SessionBoosting;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class SessionBoostingType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('Titre')
+            ->add('Description')
+            ->add('Nbr_heure')
+            ->add('Prix')
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => SessionBoosting::class,
+        ]);
+    }
+}

@@ -1,0 +1,45 @@
+{% extends 'frontOffice.html.twig' %}
+
+{% block body %}
+    <div class="currently-market">
+    <div class="container">
+      <div class="row">
+     <a href="{{ path('app_user_listebooster')}}" class="btn btn-primary btn-lg ">Nos booster</a>
+
+    <a href="{{ path('app_user_listesessionbooster')}}" class="btn btn-warning btn-lg ">Nos Sessions boosters</a>
+      {{ form_start(form) }}
+    {{ form_widget(form) }}
+{{ form_end(form) }}
+        {% for user in users %}
+            {% if user.disponibility != NULL %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="col-lg-12 currently-market-item all msc">
+                        <div class="item ">
+                            <div class="left-image">
+                                <img src="../../assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
+                            </div>
+                            <div class="right-content">
+                                <h4>BOOSTER{{ user.username }}</h4>
+                                <span class="bid"><BR><em>Lane : {{ user.voie }}</em>
+                                <br>
+                                <span class="bid">Description : {{ user.Description }}
+                                <br> 
+                                <br>
+                                <span class="bid">Price : {{ user.prix }}DT <BR>
+                                <br>
+                                </span>
+                                <br>
+                                <div class="buttons">
+                                
+                                </div>
+                                <div class="border-button"><a href="{{path('app_reservation_booster_new', {'id': user.id}) }}">Book !!</a>
+                            </div>
+                                </span></span></div>
+                    </div>
+                    
+                </div>
+        </div>
+  {% endif %}
+   {% endfor %}
+{% endblock %}

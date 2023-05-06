@@ -48,13 +48,22 @@
                     <ul class="nav">
                         <li><a href="{{path('app_home')}}" class="active">Home</a></li>
                         <li><a href="explore.html">Coaching</a></li>
-                        <li><a href="#">Boosting</a></li>
+
+                        {% if app.user %}
+                            {% if is_granted('ROLE_BOOSTER') %}
+                                <li><a href="{{path('app_user_show_dashboard',{'id': app.user.id})}}">Dashbord</a></li>
+
+                            {% else %}
+                                <li><a href="{{path('app_user_listebooster')}}">Boosting</a></li>
+
+                            {% endif %}
+                        {% endif %}
                         <li><a href="{{path('app_game_index')}}">League Of Games</a></li>
                         {% if app.user %}
                             {% if app.user.username=="admin" %}
                                 <li><a href="{{ path('app_user_index') }}">Dashbord</a></li>
                             {% else %}
-                                <li><a href="#">Make a report</a></li>
+                                <li><a href="{{path('app_reclamation_new')}}">Make a report</a></li>
                             {% endif %}
                             <li><a href="{{ path('app_user_show', {'id': app.user.id}) }}"> profile</a></li>
 
@@ -81,7 +90,6 @@
 </header>
 <!-- ***** Header Area End ***** -->
 <div class="main-banner">
-
     <div class="container">
         <div class="row">
             <div class="col-lg-6 align-self-center">
@@ -90,12 +98,16 @@
                     <h2>Coaching, Boosting and Fun games with your team !</h2>
                     <p>Liberty NFT Market is a really cool and professional design for your NFT websites. This HTML CSS template is based on Bootstrap v5 and it is designed for NFT related web portals. Liberty can be freely downloaded from TemplateMo's free css templates.</p>
                     <div class="buttons">
-                        <div class="border-button">
-                            <a href="explore.html">Explore Top NFTs</a>
-                        </div>
-                        <div class="main-button">
-                            <a href="https://youtube.com/templatemo" target="_blank">Watch Our Videos</a>
-                        </div>
+                        {% if app.user %}
+                            {% if  app.user.roles == ['ROLE_USER']  %}
+                                <div class="border-button">
+                                    <a href="{{ path('app_user_editcoach', {'id': app.user.id}) }}">Be a coach</a>
+                                </div>
+                                <div class="main-button">
+                                    <a href="{{ path('app_user_editBooster', {'id': app.user.id}) }}" >Be a booster</a>
+                                </div>
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -123,6 +135,41 @@
 </div>
 
 <!-- ***** Main Banner Area End ***** -->
+<div class="page-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h6>Liberty NFT Market</h6>
+                <h2>Discover Some Top Items</h2>
+                <span>Home > <a href="#">Explore</a></span>
+            </div>
+
+            <div class="container-fluid">
+                {% for a in actualites %}
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-8 col-sm-10">
+                            <div class="item" style="margin:20px 0 20px 0 ; border : 2px solid rgba(255, 255, 255, 0.3);  border-radius: 20px ; padding: 15px; ">
+                                <h4 style="font-size: 24px; color: purple; font-weight: bold; margin :10px 0 10px 20px;">{{ a.titre }}</h4>
+                                <div class="thumb" style=" text-align: center;"  >
+                                    <img src="../../assets/images/featured-03.jpg" alt="" style="border-radius: 20%; margin-bottom : 15px;  max-width: 350px ;">
+                                    <div class="hover-effect">
+                                        <div class="content text-center">
+                                            <img src="../../assets/images/author.jpg" alt="" style="max-width: 50px; max-height: 50px; border-radius: 50%; margin-bottom: 10px;">
+                                            <p style="color: black; font-size: 18px;">{{ a.description }}</p>
+                                            <p style="margin -10px 0 0 0;"><a href="{{ path('app_actualite_show', { 'id': a.id }) }}" style="color: lightpurple;">View More</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
 
     <div class="categories-collections">
 
@@ -162,6 +209,21 @@
 </html>
 
   
+
+  {% if  is_granted('ROLE_CHOACH')  %}
+<script>
+    var username = "{{ app.user.username }}";
+
+    alert("Hello " + username + ", your Demand to be a COACH has been successfully treated.");
+</script>
+{% endif %}
+    {% if  is_granted('ROLE_BOOSTER')  %}
+        <script>
+            var username = "{{ app.user.username }}";
+
+            alert("Hello " + username + ", your Demand to be a BOOSTER has been successfully treated.");
+        </script>
+    {% endif %}
 
 
 

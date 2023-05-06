@@ -1,0 +1,6 @@
+{% if EtatformType is defined %}
+{{ form_start(EtatformType) }}
+    {{ form_widget(EtatformType) }}
+<button class="btn" style="color: #FFFFFF">{{ button_label|default('Save') }}</button>
+{{ form_end(EtatformType) }}
+{% endif %}

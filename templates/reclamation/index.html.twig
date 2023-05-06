@@ -1,43 +1,74 @@
-<!DOCTYPE html>
-
-<title>Reclamation index</title>
+{% extends 'frontOffice.html.twig' %}
 
 {% block body %}
-    <h1>Reclamation index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>Etat</th>
-                <th>Theme</th>
-                <th>Object</th>
-                <th>Text</th>
-                <th>actions</th>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="section-heading">
+                <div class="line-dec"></div>
+                <h2>My <em>Reports</em> </h2>
+                </div>
+            </div>
+            <table class="table" style="color: white;">
+            <div class="col-12">
+                <div class="table-responsive">
+                <table class="table" style="color: white;">
+                <thead>
+                <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Theme</th>
+                <th scope="col">Object</th>
+                <th scope="col">Status</th
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
+
         {% for reclamation in reclamations %}
+            {% if reclamation.etat %}
+            <script>
+                var username = "{{ app.user.username }}";
+                var object = "{{ reclamation.object }}";
+                alert("Hello " + username + ", your report \"" + object + "\" has been successfully treated.");
+            </script>
+            {% endif %}
+
+
             <tr>
-                <td>{{ reclamation.id }}</td>
-                <td>{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</td>
-                <td>{{ reclamation.etat ? 'Yes' : 'No' }}</td>
-                <td>{{ reclamation.theme }}</td>
-                <td>{{ reclamation.object }}</td>
-                <td>{{ reclamation.text }}</td>
-                <td>
-                    <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}">show</a>
-                    <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">edit</a>
-                </td>
-            </tr>
+                <td style="color: #FFFFFF">{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</td>
+                <td style="color: #FFFFFF">{{ reclamation.theme }}</td>
+                <td style="color: #FFFFFF">{{ reclamation.object }}</td>
+                <td style="color: #FFFFFF">{{ reclamation.etat ? 'Saved successfully' : 'On hold' }}</td>
+                <td>  <form action="{{path('app_reclamation_show', {'id': reclamation.id}) }}" method="post">
+
+                                            <button class="btn">
+                                            <span style="color: white;">Show</span>
+                                            </button>
+                                    </form></td>
+                <td>  <form action="{{path('app_reclamation_edit', {'id': reclamation.id}) }}" method="post">
+
+                                            <button class="btn">
+                                            <span style="color: white;">Edit</span>
+                                            </button>
+                                    </form></td>
         {% else %}
             <tr>
                 <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
+
+
         </tbody>
     </table>
+</div>
+</div>
+                               
+</table>
+                                          
+</div>
+</div>
 
-    <a href="{{ path('app_reclamation_new') }}">Create new</a>
 {% endblock %}

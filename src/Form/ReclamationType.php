@@ -7,6 +7,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Regex;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
+
 
 class ReclamationType extends AbstractType
 {
@@ -21,9 +26,9 @@ class ReclamationType extends AbstractType
                     'Report a Bug' => 'Bug rep',
                     'Other' => 'Other',
                 ],
-                    'multiple' => false,
-                    'expanded' => false,
-                    'label' => 'Choose your theme',])
+                'multiple' => false,
+                'expanded' => false,
+                'label' => 'Choose your theme',])
             ->add('object', TextType::class, [
                 'constraints' => [
                     new Regex([
@@ -41,7 +46,17 @@ class ReclamationType extends AbstractType
                 ],
             ])
 
+
+            ->add('captcha', Recaptcha3Type::class, [
+                'constraints' => new Recaptcha3(),
+                'action_name' => 'homepage',
+            ])
+
         ;
+
+
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -13,10 +13,14 @@
                             <div class="bg-secondary rounded h-100 p-4">
                                 <h6 class="mb-4" style="text-align: center" >Users List</h6>
                                 <div class="table-responsive">
+                                    {{ form_start(form,{'attr': {'id': 'contact'}} ) }}
+                                    {{ form_widget(form) }}
+                                    {{ form_end(form) }}
                                     <table class="table">
                                         <thead>
+
                                         <tr>
-                                            <th style="text-align: center;color: #FFFFFF" scope="col">#</th>
+                                            <th style="text-align: center;color: #FFFFFF" scope="col">Id</th>
                                             <th style="text-align: center ;color: #FFFFFF " scope="col">First Name</th>
                                             <th style="text-align: center ;color: #FFFFFF"  scope="col">Last Name</th>
                                             <th style="text-align: center ;color: #FFFFFF" scope="col">Email</th>
@@ -51,5 +55,8 @@
                         </div>
 
                     </table></div></div></div></div>
+
+
+
     <!-- Table End -->
 {% endblock %}

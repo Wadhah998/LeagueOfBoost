@@ -55,7 +55,33 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         $this->save($user, true);
     }
+    public function filterByPrice($prixmax, $rang, $voie,$prixmin)
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
 
+        if ($prixmax !== null) {
+            $queryBuilder
+                ->andWhere('u.prix <= :prixmax')
+                ->setParameter('prixmax', $prixmax);
+        }
+        if ($prixmin !== null) {
+            $queryBuilder
+                ->andWhere('u.prix >= :prixmin')
+                ->setParameter('prixmin', $prixmin);
+        }
+        if ($rang !== null) {
+            $queryBuilder
+                ->andWhere('u.rang = :rang')
+                ->setParameter('rang', $rang);
+        }
+        if ($voie !== null) {
+            $queryBuilder
+                ->andWhere('u.voie = :voie')
+                ->setParameter('voie', $voie);
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
@@ -80,4 +106,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function filterByRole( $role)
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+        if ($role !== null) {
+            $queryBuilder
+                ->andWhere('u.roles = :role')
+                ->setParameter('role', $role);
+        }
+        return $queryBuilder->getQuery()->getResult();
+    }
 }
