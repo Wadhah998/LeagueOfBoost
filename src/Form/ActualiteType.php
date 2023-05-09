@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ActualiteType extends AbstractType
 {
@@ -21,8 +22,8 @@ class ActualiteType extends AbstractType
                     new Length(['max' => 50, 'maxMessage' => 'Field must be no more than 50 characters.'])
                 ]
          
-            ]);
-        ;
+            ])
+            ->add("Save",SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

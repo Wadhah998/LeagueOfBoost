@@ -43,10 +43,10 @@ class Team
     #[ORM\Column(length: 255)]
     private ?string $player5 = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $wins = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $losses = null;
 
     public function __construct()

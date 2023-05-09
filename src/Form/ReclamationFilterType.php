@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Form\ResetType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ReclamationFilterType extends AbstractType
 {
@@ -34,6 +35,9 @@ class ReclamationFilterType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
                 'label' => 'Choose the report status',
+            ])
+            ->add('filter', SubmitType::class, [
+                'label' => 'Filter'
             ]);
     }
 

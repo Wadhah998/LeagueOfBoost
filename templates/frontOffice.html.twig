@@ -66,6 +66,7 @@
                         {% endif %}
                         {% endif %}
                         <li><a href="{{path('app_game_index')}}">League Of Games</a></li>
+                        
                         {% if app.user %}
                             {% if is_granted('ROLE_ADMIN') %}
                               <li><a href="{{ path('app_game_admin') }}">Dashbord</a></li>
@@ -138,8 +139,6 @@
     <script src="../../assets/js/tabs.js"></script>
     <script src="../../assets/js/popup.js"></script>
     <script src="../../assets/js/custom.js"></script>
-
-
 
 {% endblock %}
 </body>

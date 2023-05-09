@@ -33,7 +33,7 @@
             </div>
           </div>
             
-          <form action="{{path('app_payment', {'id': game.id})}}" method="post">
+          <form action="{{path('app_payment', {'id': game.id})}}" method="post","get">
             <input type="hidden" name="token"  value="{{csrf_token('myform')}}">
             <input type="hidden" name="amount"  value="{{game.price}}"DT>
             <label for="quantity-text">Pay Now:</label>

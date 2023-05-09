@@ -7,6 +7,7 @@ use App\Entity\ReservationBooster;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ReservationBoosterType extends AbstractType
 {
@@ -21,6 +22,7 @@ class ReservationBoosterType extends AbstractType
                 'action_name' => 'reservation_booster',
                 'locale' => 'de',
             ])
+            ->add("Save",SubmitType::class)
         ;
     }
 

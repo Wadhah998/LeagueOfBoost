@@ -7,10 +7,24 @@
             <div class="bg-secondary rounded h-100 p-4">
 
 
-                            {{ form_start(ReclamationFilterType) }}
-                            {{ form_widget(ReclamationFilterType) }}
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                            {{ form_end(ReclamationFilterType) }}
+                            {{ form_start(ReclamationFilterType, {'attr': {'id': 'contact'}}) }}
+
+                                    <div class="bg-secondary rounded h-100 p-4">
+                                        <h6 class="mb-4">Select Report Theme</h6>
+                                        {{ form_widget(ReclamationFilterType.theme, {'attr': {'class': 'form-select form-select-sm mb-3', 'aria-label': '.form-select-sm example'}}) }}
+                                    </div>
+
+                                    <div class="bg-secondary rounded h-100 p-4">
+                                        <h6 class="mb-4">Select Report State</h6>
+                                        {{ form_widget(ReclamationFilterType.etat, {'attr': {'class': 'form-select form-select-sm mb-3', 'aria-label': '.form-select-sm example'}}) }}
+                                    </div>
+                                    <div class="bg-secondary rounded h-100 p-4">
+                                        
+                                    {{ form_widget(ReclamationFilterType.filter, {'attr': {'class': 'btn btn-outline-light m-2', 'label':'Filter'}}) }}
+                                       
+                                    </div>
+                                  
+                                    {{ form_end(ReclamationFilterType) }}
                             <br><br>
                         <table class="table">
 

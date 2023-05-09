@@ -60,7 +60,7 @@
                         {% endif %}
                         <li><a href="{{path('app_game_index')}}">League Of Games</a></li>
                         {% if app.user %}
-                            {% if app.user.username=="admin" %}
+                            {% if is_granted('ROLE_ADMIN') %}
                                 <li><a href="{{ path('app_user_index') }}">Dashbord</a></li>
                             {% else %}
                                 <li><a href="{{path('app_reclamation_new')}}">Make a report</a></li>
@@ -135,35 +135,41 @@
 </div>
 
 <!-- ***** Main Banner Area End ***** -->
-<div class="page-heading">
+<div class="create-nft">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h6>Liberty NFT Market</h6>
-                <h2>Discover Some Top Items</h2>
-                <span>Home > <a href="#">Explore</a></span>
-            </div>
+      <div class="row">
 
-            <div class="container-fluid">
-                {% for a in actualites %}
-                    <div class="row justify-content-center">
-                        <div class="col-lg-6 col-md-8 col-sm-10">
-                            <div class="item" style="margin:20px 0 20px 0 ; border : 2px solid rgba(255, 255, 255, 0.3);  border-radius: 20px ; padding: 15px; ">
-                                <h4 style="font-size: 24px; color: purple; font-weight: bold; margin :10px 0 10px 20px;">{{ a.titre }}</h4>
-                                <div class="thumb" style=" text-align: center;"  >
-                                    <img src="../../assets/images/featured-03.jpg" alt="" style="border-radius: 20%; margin-bottom : 15px;  max-width: 350px ;">
-                                    <div class="hover-effect">
-                                        <div class="content text-center">
-                                            <img src="../../assets/images/author.jpg" alt="" style="max-width: 50px; max-height: 50px; border-radius: 50%; margin-bottom: 10px;">
-                                            <p style="color: black; font-size: 18px;">{{ a.description }}</p>
-                                            <p style="margin -10px 0 0 0;"><a href="{{ path('app_actualite_show', { 'id': a.id }) }}" style="color: lightpurple;">View More</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
+        <div class="col-lg-9">
+            <div class="section-heading">
+                <div class="line-dec"></div>
+                <h2>Check out the latest gaming news!</h2>
+            </div>
+        </div>
+
+        {% for a in actualites %}
+<br>
+        <div class="col-lg-4">
+          <div class="item second-item">
+            <div class="number">
+              <h6>*</h6>
+            </div>
+            <div class="icon">
+              <img src="assets/images/icon-04.png" alt="">
+            </div>
+            <h4>{{a.titre}}</h4>
+            <p>{{a.description}}</p>
+<br><br>
+            <div class="col-lg-4">
+                <div class="main-button">
+                <a href="{{ path('app_actualite_show', { 'id': a.id }) }}" style="color: lightpurple;">View More</a></p>
+                </div>
+            </div>  
+
+          </div>
+        </div>
+        
+        {% endfor %}
+        
         </div>
     </div>
 </div>
@@ -177,7 +183,8 @@
 
 
     {% endblock %}
-        </div>
+
+    </div>
 
 
 <footer>

@@ -28,7 +28,7 @@ class ActualiteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $actualiteRepository->save($actualite, true);
 
-            return $this->redirectToRoute('app_actualite_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_actualite_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('actualite/new.html.twig', [
@@ -47,7 +47,7 @@ class ActualiteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $actualiteRepository->save($actualite, true);
 
-            return $this->redirectToRoute('app_actualite_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_actualite_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('actualite/newnew.html.twig', [
@@ -57,24 +57,26 @@ class ActualiteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_actualite_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_actualite_show', methods: ['GET','POST'])]
     public function show(Actualite $actualite, CommentaireRepository $commentaireRepository, Request $request): Response
     {
         $commentaire = new Commentaire();
-        
+        $commentaire->setComments($actualite);
+
+
         // create a Commentaire form
         $form = $this->createForm(CommentaireType::class, $commentaire);
-    
-        // handle Commentaire form submission
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $commentaireRepository->save($commentaire, true);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($commentaire);
             $entityManager->flush();
-            return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_actualite_show', ['id' => $actualite->getId()], Response::HTTP_SEE_OTHER);
         }
-    
+        
+
+
         // handle like button click
         if ($request->isMethod('POST') && $request->request->get('like')) {
             $likes = $actualite->getLikes();
@@ -106,7 +108,7 @@ class ActualiteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $actualiteRepository->save($actualite, true);
 
-            return $this->redirectToRoute('app_actualite_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_actualite_show', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('actualite/edit.html.twig', [
@@ -121,7 +123,7 @@ class ActualiteController extends AbstractController
             $actualiteRepository->remove($actualite, true);
         }
 
-        return $this->redirectToRoute('app_actualite_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_actualite_show', [], Response::HTTP_SEE_OTHER);
     }
  /*   #[Route('/liste', name:'app_actualite_liste', methods: ['GET'])]
     public function liste(ActualiteRepository $actualiteRepository): Response

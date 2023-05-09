@@ -1,51 +1,43 @@
 {% extends '/frontOffice.html.twig' %}
 
 {% block body %}
+
   <div class="item-details-page">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
           <div class="section-heading">
             <div class="line-dec"></div>
-            <h2>View Actualité <em>En détail</em> Here.</h2>
+            <h2>{{actualite.titre}}</h2>
           </div>
         </div>
+
         <div class="col-lg-7">
           <div class="left-image">
-            <img src="../../assets/images/item-details-01.jpg" alt="" style="border-radius: 20px;">
+            <img src="../../assets/images/news.jpeg" alt="" style="border-radius: 20px;">
           </div>
-        </div>
-        <div class="col-lg-5 align-self-center">
-          <h4>{{actualite.titre}}</h4>
-          <a href="{{ path('app_actualite_show',{'id': actualite.id}) }}">&#10084; </a> <br>
-          {%if actualite.Likes is not empty %}
-          {{actualite.Likes }}
-         {% else %}
-         0
-         {% endif %}
-          <span class="author">
-            <img src="../../assets/images/author-02.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
-            <h6>Liberty Artist<br><a href="#">@libertyart</a></h6>
-          </span>
-          <p>{{actualite.description}} </p>
-          <form action="submit">
-          
-            {{ include('commentaire/_form.html.twig') }}
-        
+        </div>    
 
-            <a href="{{ path('app_commentaire_new', {'id': actualite.id}) }}) }}">Create new Commentaire</a> <br>
+        <div class="col-lg-5 align-self-center">
+          <h4>{{actualite.titre}}</h4>          
+          <p>{{actualite.description}} </p>         
+
+          <h4>Make a comment :</h4> 
+            {{ form_start(form) }}
+            {{ form_row(form.comment) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary">Submit</button>
+            {{ form_end(form) }}
             <br>
+            <h4>Previous comments :</h4> 
                     {% for commentaire in commentaires %}
                     {% if commentaire.comments.id == actualite.id %}
             
             <tr style="body color: white;">
-                <td>{{ commentaire.id }} </td>
                 <td>{{ commentaire.comment }}</td>
             </tr>
                 <td>
-                    <a href="{{ path('app_commentaire_show', {'id': commentaire.id}) }}">show</a>
-                    /
-                    <a href="{{ path('app_commentaire_edit', {'id': commentaire.id}) }}">edit</a>
+                    
                     <br>
                     
                 </td>
@@ -53,16 +45,35 @@
             {% endif %}
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">no commants on this post</td>
             </tr>
         {% endfor %}
           
-
+        </div>
        
         </div>
     </div>
 </div>
-
+<div class="author-page">
+                <div class="container">               
+                  <div class="col-lg-8">
+                    <div class="right-info">
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="info-item">
+                            <i class="fa fa-heart"></i>
+                            <h6>{%if actualite.Likes is not empty %}
+                            {{actualite.Likes }}
+                            {% else %}
+                            0
+                            {% endif %} <em>Likes</em></h6>
+                          </div>
+                        </div>                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
   
 
 
