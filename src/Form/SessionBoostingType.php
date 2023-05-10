@@ -6,6 +6,7 @@ use App\Entity\SessionBoosting;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class SessionBoostingType extends AbstractType
 {
@@ -16,6 +17,7 @@ class SessionBoostingType extends AbstractType
             ->add('Description')
             ->add('Nbr_heure')
             ->add('Prix')
+            ->add("Save",SubmitType::class)
         ;
     }
 

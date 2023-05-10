@@ -14,6 +14,7 @@
         "guzzlehttp/guzzle": "*",
         "karser/karser-recaptcha3-bundle": "^0.1.23",
         "league/omnipay": "^3.2",
+        "lexik/form-filter-bundle": "dev-master",
         "omnipay/paypal": "^3.0",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.16",

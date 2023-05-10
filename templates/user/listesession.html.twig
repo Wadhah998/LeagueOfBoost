@@ -1,44 +1,89 @@
 {% extends 'frontOffice.html.twig' %}
 
 {% block body %}
-<h1>Les Sessions existantes :</h1>
-    <br>
+<div class="discover-items">
+    <div class="container">
+      <div class="row">
 
-          <a href="{{ path('app_user_listecoach')}}" class="btn btn-primary btn-lg ">Nos Coachs</a>
+       <div class="col-lg-12">
+                <div class="section-heading">
+                  <div class="line-dec"></div>
+                  <h2>Our <em>Coaching</em> Sessions.</h2>
+                </div>
+        </div>
 
-    <a href="{{ path('app_user_listesession')}}" class="btn btn-warning btn-lg ">Nos Sessions Coaching</a>
-          {{ form_start(form) }}
-    {{ form_widget(form) }}
-{{ form_end(form) }}
-    <table class="table">
-        <thead>
-            <tr>
-                <th style="color: white;">Id</th>
-                <th style="color: white;">Titre</th>
-                <th style="color: white;">Description</th>
-                <th style="color: white;">Prix</th>
-                <th style="color: white;">Date</th>
-                <th style="color: white;">actions</th>
-            </tr>
-        </thead>
-        <tbody>
+        <div class="col-lg-10">
+          <div class="filters">
+            {{ form_start(form, {'attr': {'id': 'contact'}}) }}
+        <div class="row">
+          <div class="col-lg-4">
+          <fieldset>
+              <p> Enter Max Price: </p>
+              <li data-filter=".msc">{{ form_widget(form.prixmax)}}</li>
+          </fieldset>
+          </div>
+
+          <div class="col-lg-4">
+          <fieldset>
+              <p> Enter Min Price: </p>
+              <li data-filter=".dig">{{ form_widget(form.prixmin)}}</li>
+          </fieldset>
+          </div>
+
+          <div class="col-lg-4">
+            <fieldset>
+          {{ form_widget(form.filter, {'attr': {'class': 'orange-button', 'label':'Filter'}}) }}
+            </fieldset>
+          </div>
+        </div>
+
+          {{ form_end(form) }}
+          </div>
+        </div>
+
         {% for session_coaching in session_coachings %}
-            <tr>
-                <td style="color: white;">{{ session_coaching.id }}</td>
-                <td style="color: white;">{{ session_coaching.Titre }}</td>
-                <td style="color: white;">{{ session_coaching.Description }}</td>
-                <td style="color: white;">{{ session_coaching.Prix }}</td>
-                <td style="color: white;">{{ session_coaching.Date ? session_coaching.Date|date('Y-m-d') : '' }}</td>
-                <td>
-                                                <a href="{{ path('app_session_coaching_show', {'id': session_coaching.id}) }}" class="btn btn-primary"> show </a>
 
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td style="color: white;" colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="col-lg-3">
+          <div class="item">
+            <div class="row">
+              <div class="col-lg-12">
+                <span class="author">
+                  <img src="../../assets/images/author.jpg" alt="" style="max-width: 50px; max-height: 50px; border-radius: 50%;">
+                </span>
+                <img src="../../assets/images/raw.jpg" alt="" style="border-radius: 20px;">
+                <h4>{{ session_coaching.titre }}</h4>
+              </div>
+              <div class="col-lg-12">
+                <div class="line-dec"></div>
+                <div class="row">
+                  <div class="col-6">
+                    <span>Prix: <br> <strong>{{ session_coaching.prix }} DT</strong></span>
+                  </div>
+                  <div class="col-6">
+                    <span>Date: <br> <strong>{{ session_coaching.date ? session_coaching.date|date('Y-m-d H:i:s') : ''}}</strong></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="main-button">
+                        <form action="{{path('app_payment3', {'id': session_coaching.id})}}" method="post">
+            
+                                            <input type="hidden" name="token"  value="{{csrf_token('myform')}}">
+
+                                            <input type="hidden" name="amount"  value="{{session_coaching.prix}}">
+
+                                <button class"main-button">Paypal</button>
+                            </form> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+                {% endfor %}
+
+      </div>
+    </div>
+  </div>
+  
+
 {% endblock %}

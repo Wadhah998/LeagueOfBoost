@@ -1,46 +1,103 @@
 {% extends 'frontOffice.html.twig' %}
 
 {% block body %}
-    <div class="currently-market">
+   
+
+<div class="currently-market">
     <div class="container">
       <div class="row">
-          <a href="{{ path('app_user_listecoach')}}" class="btn btn-primary btn-lg ">Nos Coachs</a>
-
-    <a href="{{ path('app_user_listesession')}}" class="btn btn-warning btn-lg ">Nos Sessions Coaching</a>
-      {{ form_start(form) }}
-    {{ form_widget(form) }}
-{{ form_end(form) }}
-      
-        {% for user in users %}
-            {% if user.voie != NULL %}
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="col-lg-12 currently-market-item all msc">
-                        <div class="item ">
-                            <div class="left-image">
-                                <img src="../../assets/images/market-01.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
-                            </div>
-                            <div class="right-content">
-                                <h4>Coach {{ user.username }}</h4>
-                                <span class="bid"><BR><em>Lane : {{ user.voie }}</em>
-                                <br>
-                                <span class="bid">Description : {{ user.Description }}
-                                <br> 
-                                <br>
-                                <span class="bid">Price : {{ user.prix }}DT <BR>
-                                <br>
-                                </span>
-                                <br>
-                                <div class="buttons">
-                                
-                                </div>
-                                <div class="border-button"><a href="{{path('app_reservation_c_new', {'id': user.id}) }}">Book !!</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
+        <div class="col-lg-5">
+          <div class="section-heading">
+            <div class="line-dec"></div>
+            <h2><em>Coaches</em> In Your Service.</h2>
+          </div>
         </div>
-  {% endif %}
-   {% endfor %}
+        <div class="col-lg-6">
+          <div class="filters">
+            {{ form_start(form, {'attr': {'id': 'contact'}}) }}
+        <div class="row">
+          <div class="col-lg-4">
+          <fieldset>
+              <p> Enter Max Price: </p>
+              <li data-filter=".msc">{{ form_widget(form.prixmax)}}</li>
+          </fieldset>
+          </div>
+
+          <div class="col-lg-4">
+          <fieldset>
+              <p> Enter Min Price: </p>
+              <li data-filter=".dig">{{ form_widget(form.prixmin)}}</li>
+          </fieldset>
+          </div>
+
+          <div class="col-lg-4">
+          <fieldset>
+              <p> Lane: </p>
+              <li data-filter=".dig">{{ form_widget(form.Voie)}}</li>
+          </fieldset>
+          </div>
+
+          <div class="col-lg-4">
+            <fieldset>
+          {{ form_widget(form.filter, {'attr': {'class': 'orange-button', 'label':'Filter'}}) }}
+            </fieldset>
+          </div>
+        </div>
+
+          {{ form_end(form) }}
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="row grid">
+            {% for user in users %}
+                {% if user.voie != NULL%}
+                {% if user.disponibility == NULL%}
+                  <div class="col-lg-6 currently-market-item all msc">
+                    <div class="item">
+                        <div class="left-image">
+                        <img src="../../assets/images/coach.jpg" alt="" style="border-radius: 20px; min-width: 195px;">
+                        </div>
+
+                        <div class="right-content">
+                        <h4>{{ user.voie }}</h4>
+                        <span class="author">
+                            <img src="../../assets/images/author.jpg" alt="" style="max-width: 50px; border-radius: 50%;">
+                            <h6>{{ user.Description }}<br><a href="#">@{{ user.username }}</a></h6>
+                        </span>
+
+                        <div class="line-dec"></div>
+                        <span class="bid">
+                            Price<br><strong>{{ user.prix }} DT</strong><br>
+                        </span>
+                      
+                        <br>
+                    <div class="main-buttonn">
+
+                              <form action="{{path('app_payment3', {'id': user.id})}}" method="post">
+            
+                                            <input type="hidden" name="token"  value="{{csrf_token('myform')}}">
+
+                                            <input type="hidden" name="amount"  value="{{user.prix}}">
+
+                                <button class"main-button">Paypal</button>
+                            </form> 
+                    </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+
+                {% endif %}
+            {% endfor %}
+         
+            
+        </div>
+      </div>
+         <div class="main-button" align="center">
+                        <a href="{{ path('app_user_listesession') }}">Our Sessions</a>
+            </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

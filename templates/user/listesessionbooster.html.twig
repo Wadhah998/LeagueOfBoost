@@ -1,42 +1,89 @@
 {% extends 'frontOffice.html.twig' %}
 
 {% block body %}
-<h1>Les Sessions existantes :</h1>
-    <br>
+<div class="discover-items">
+    <div class="container">
+      <div class="row">
 
-          <a href="{{ path('app_user_listebooster')}}" class="btn btn-primary btn-lg ">Nos boosters</a>
+       <div class="col-lg-12">
+                <div class="section-heading">
+                  <div class="line-dec"></div>
+                  <h2>Our <em>Booster</em> Sessions.</h2>
+                </div>
+        </div>
 
-    <a href="{{ path('app_user_listesessionbooster')}}" class="btn btn-warning btn-lg ">Nos Sessions boosting</a>
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-{{ form_end(form) }}
-    <table class="table">
-        <thead>
-            <tr>
-                <th style="color: white;">Id</th>
-                <th style="color: white;">Titre</th>
-                <th style="color: white;">Description</th>
-                <th style="color: white;">Prix</th>
-                <th style="color: white;">Date</th>
-                <th style="color: white;">actions</th>
-            </tr>
-        </thead>
-        <tbody>
+        <div class="col-lg-10">
+          <div class="filters">
+            {{ form_start(form, {'attr': {'id': 'contact'}}) }}
+        <div class="row">
+          <div class="col-lg-4">
+          <fieldset>
+              <p> Enter Max Price: </p>
+              <li data-filter=".msc">{{ form_widget(form.prixmax)}}</li>
+          </fieldset>
+          </div>
+
+          <div class="col-lg-4">
+          <fieldset>
+              <p> Enter Min Price: </p>
+              <li data-filter=".dig">{{ form_widget(form.prixmin)}}</li>
+          </fieldset>
+          </div>
+
+          <div class="col-lg-4">
+            <fieldset>
+          {{ form_widget(form.filter, {'attr': {'class': 'orange-button', 'label':'Filter'}}) }}
+            </fieldset>
+          </div>
+        </div>
+
+          {{ form_end(form) }}
+          </div>
+        </div>
+
         {% for session_boosting in session_boostings %}
-            <tr>
-                <td style="color: white;">{{ session_boosting.id }}</td>
-                <td style="color: white;">{{ session_boosting.Titre }}</td>
-                <td style="color: white;">{{ session_boosting.Description }}</td>
-                <td style="color: white;">{{ session_boosting.Prix }}</td>
-                <td>
-                    <a href="{{ path('app_session_boosting_show', {'id': session_boosting.id}) }}" class="btn btn-primary"> show </a>                </td>
-            </tr>
+
+        <div class="col-lg-3">
+          <div class="item">
+            <div class="row">
+              <div class="col-lg-12">
+                <span class="author">
+                  <img src="../../assets/images/author.jpg" alt="" style="max-width: 50px; max-height: 50px; border-radius: 50%;">
+                </span>
+                <img src="../../assets/images/jinx.jpg" alt="" style="border-radius: 20px;">
+                <h4>{{ session_boosting.Titre }}</h4>
+              </div>
+              <div class="col-lg-12">
+                <div class="line-dec"></div>
+                <div class="row">
+                  <div class="col-6">
+                    <span>Description: <br> <strong>{{ session_boosting.Description }}</strong></span>
+                  </div>
+                  <div class="col-6">
+                    <span>Price: <br> <strong>{{ session_boosting.Prix }} DT</strong></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="main-button">
+                        <form action="{{path('app_payment2', {'id': session_boosting.id})}}" method="post">
             
-        {% else %}
-            <tr>
-                <td style="color: white;" colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                                            <input type="hidden" name="token"  value="{{csrf_token('myform')}}">
+
+                                            <input type="hidden" name="amount"  value="{{session_boosting.prix}}">
+
+                                <button class"main-button">Paypal</button>
+                            </form> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+                {% endfor %}
+
+      </div>
+    </div>
+  </div>
+  
+
 {% endblock %}

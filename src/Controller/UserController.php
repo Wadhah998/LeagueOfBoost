@@ -25,9 +25,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/user')]
 class UserController extends AbstractController
 {
-
-    #[Route('/coach', name: 'app_user_listecoach', methods: ['GET','POST'])]
-    public function listeCoach(Request $request,UserRepository $userRepository): Response
+    #[Route('/booster', name: 'app_user_listebooster', methods: ['GET','POST'])]
+    public function listebooster(Request $request,UserRepository $userRepository): Response
     {
         $form = $this->createFormBuilder()
             ->add('prixmax', TextType::class, [
@@ -38,14 +37,6 @@ class UserController extends AbstractController
             ->add('prixmin', TextType::class, [
                 'required' => false,
                 'label' => 'prixmin',
-                'label_attr' => ['style' => 'color: white']
-            ])
-            ->add('Rang', ChoiceType::class,[
-                'choices' => [
-                    'Aucun filtre' => null,
-                    'Master' => 'Master',
-                    'Grandmaster' => 'Grandmaster',
-                    'Challenger' => 'Challenger',],
                 'label_attr' => ['style' => 'color: white']
             ])
             ->add('Voie', ChoiceType::class,[
@@ -68,10 +59,94 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $prixmax = $form->get('prixmax')->getData();
             $prixmin = $form->get('prixmin')->getData();
-            $rang = $form->get('Rang')->getData();
             $voie = $form->get('Voie')->getData();
 
-            $users = $userRepository->filterByPrice($prixmax,$rang,$voie,$prixmin);
+            $users = $userRepository->filterByPrice($prixmax,$voie,$prixmin);
+            return $this->render('user/listebooster.html.twig', [
+                'form' => $form->createView(),
+                'users' => $users,
+            ]);
+        }
+        return $this->render('user/listebooster.html.twig', [
+            'form' => $form->createView(),
+            'users' => $userRepository->findAll(),
+        ]);
+
+    }
+    #[Route('/session', name: 'app_user_listesessionbooster', methods: ['GET','POST'])]
+    public function listeSessionBooster(Request $request, UserRepository $userRepository, SessionBoostingRepository $sessionBoostingRepository): Response
+    {
+        $form = $this->createFormBuilder()
+            ->add('prixmax', TextType::class, [
+                'required' => false,
+                'label' => 'prixmax',
+                'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('prixmin', TextType::class, [
+                'required' => false,
+                'label' => 'prixmin',
+                'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('filter', SubmitType::class, [
+                'label' => 'Filter'
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $prixmax = $form->get('prixmax')->getData();
+            $prixmin = $form->get('prixmin')->getData();
+
+            $session_boostings = $sessionBoostingRepository->findAll($prixmax, $prixmin);
+        } else {
+            $session_boostings = $sessionBoostingRepository->findAll();
+        }
+
+        return $this->render('user/listesessionbooster.html.twig', [
+            'form' => $form->createView(),
+            'session_boostings' => $session_boostings,
+        ]);
+    }
+
+    #[Route('/coach', name: 'app_user_listecoach', methods: ['GET','POST'])]
+    public function listeCoach(Request $request,UserRepository $userRepository): Response
+    {
+        $form = $this->createFormBuilder()
+            ->add('prixmax', TextType::class, [
+                'required' => false,
+                'label' => 'prixmax',
+                'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('prixmin', TextType::class, [
+                'required' => false,
+                'label' => 'prixmin',
+                'label_attr' => ['style' => 'color: white']
+            ])
+     
+            ->add('Voie', ChoiceType::class,[
+                'choices' => [
+                    'Aucun filtre' => null,
+                    'Toplaner' => 'Toplaner',
+                    'Jungler' => 'Jungler',
+                    'Midlaner' => 'Midlaner',
+                    'Support' => 'Support',
+                    'ADCarry' => 'ADCarry',],
+                'label_attr' => ['style' => 'color: white']
+            ])
+            ->add('filter', SubmitType::class, [
+                'label' => 'Filter'
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $prixmax = $form->get('prixmax')->getData();
+            $prixmin = $form->get('prixmin')->getData();
+            $voie = $form->get('Voie')->getData();
+
+            $users = $userRepository->filterByPrice($prixmax,$voie,$prixmin);
             return $this->render('user/listecoach.html.twig', [
                 'form' => $form->createView(),
                 'users' => $users,
@@ -133,7 +208,7 @@ class UserController extends AbstractController
 
 
     #[Route('/boost', name: 'app_user_listebooster', methods: ['GET','POST'])]
-    public function listebooster(Request $request,UserRepository $userRepository): Response
+    public function listeboosters(Request $request,UserRepository $userRepository): Response
     {
         $form = $this->createFormBuilder()
             ->add('prixmax', TextType::class, [
@@ -146,14 +221,7 @@ class UserController extends AbstractController
                 'label' => 'prixmin',
                 'label_attr' => ['style' => 'color: white']
             ])
-            ->add('Rang', ChoiceType::class,[
-                'choices' => [
-                    'Aucun filtre' => null,
-                    'Master' => 'Master',
-                    'Grandmaster' => 'Grandmaster',
-                    'Challenger' => 'Challenger',],
-                'label_attr' => ['style' => 'color: white']
-            ])
+        
             ->add('Voie', ChoiceType::class,[
                 'choices' => [
                     'Aucun filtre' => null,
@@ -174,10 +242,9 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $prixmax = $form->get('prixmax')->getData();
             $prixmin = $form->get('prixmin')->getData();
-            $rang = $form->get('Rang')->getData();
             $voie = $form->get('Voie')->getData();
 
-            $users = $userRepository->filterByPrice($prixmax,$rang,$voie,$prixmin);
+            $users = $userRepository->filterByPrice($prixmax,$voie,$prixmin);
             return $this->render('user/listebooster.html.twig', [
                 'form' => $form->createView(),
                 'users' => $users,
@@ -460,42 +527,8 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_BoosterDemande', [], Response::HTTP_SEE_OTHER);
     }
-
-    #[Route('/session', name: 'app_user_listesessionbooster', methods: ['GET','POST'])]
-    public function listeSessionBooster(Request $request, UserRepository $userRepository, SessionBoostingRepository $sessionBoostingRepository): Response
-    {
-        $form = $this->createFormBuilder()
-            ->add('prixmax', TextType::class, [
-                'required' => false,
-                'label' => 'prixmax',
-                'label_attr' => ['style' => 'color: white']
-            ])
-            ->add('prixmin', TextType::class, [
-                'required' => false,
-                'label' => 'prixmin',
-                'label_attr' => ['style' => 'color: white']
-            ])
-            ->add('filter', SubmitType::class, [
-                'label' => 'Filter'
-            ])
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $prixmax = $form->get('prixmax')->getData();
-            $prixmin = $form->get('prixmin')->getData();
-
-            $session_boostings = $sessionBoostingRepository->findAll($prixmax, $prixmin);
-        } else {
-            $session_boostings = $sessionBoostingRepository->findAll();
-        }
-
-        return $this->render('user/listesessionbooster.html.twig', [
-            'form' => $form->createView(),
-            'session_boostings' => $session_boostings,
-        ]);
-    }
+    
+    
     #[Route('/booster/dashboard/{id}', name: 'app_user_show_dashboard', methods: ['GET'])]
         public function showDashboard(User $user,SessionBoostingRepository $sessionBoostingRepository,ReservationBoosterRepository $reservationBoosterRepository): Response
 {

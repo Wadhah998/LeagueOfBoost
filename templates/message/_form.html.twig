@@ -1,4 +1,13 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-<button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'id': 'contact'}}) }}
+    <div class="col-lg-4">
+        <fieldset>
+            {{ form_label(form.message) }}
+            {{ form_widget(form.message, {'attr': {'placeholder': 'Write your message here'}}) }}
+        </fieldset>
+    </div>
+    <div class="col-lg-8">
+        <fieldset>
+            {{ form_widget(form.Save, {'attr': {'class': 'orange-button', 'label':'Save'}}) }}
+        </fieldset>
+    </div>
 {{ form_end(form) }}

@@ -1,58 +1,47 @@
 {% extends 'frontOffice.html.twig' %}
 
 {% block body %}
-<br>
-<br>
-<br>
-<div class="container">
-    <div class="row">
+
+<div class="item-details-page">
+    <div class="container">
+      <div class="row">
         <div class="col-lg-12">
-            <div class="section-heading">
-                <div class="line-dec"></div>
-                    <h3>Game Infos</h3>
-                </div>
-            </div>
-                            <table class="table" style="color: white;">
-                                <div class="col-12">
-                                <div class="table-responsive">
-                                <table class="table" style="color: white;">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Date</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody> 
-                                    <tr>
-                                        <td>{{ game.title }}</td>
-                                        <td>{{ game.description }}</td>
-                                        <td>{{ game.price }} DT</td>
-                                        <td>{{ game.date ? game.date|date('Y-m-d H:i:s') : '' }}</td>
-                                        <td>  <form action="{{path('app_payment', {'id': game.id})}}" method="post">
-            
-                                            <input type="hidden" name="token"  value="{{csrf_token('myform')}}">
-
-                                            <input type="hidden" name="amount"  value="{{game.price}}">
-
-                                            <button class="btn">
-                                            <span style="color: white;">Pay with paypal</span>
-                                            </button>
-                                    </form></td>
-                                    </tr>
-                                    </tbody>
-                                    </table>
-                                    </div>
-                                    </div>
-                               
-                                </table>
-                                          
+          <div class="section-heading">
+            <div class="line-dec"></div>
+            <h2>Game Infos</h2>
+          </div>
         </div>
-    </div>
-</div>
-
+        <div class="col-lg-7">
+          <div class="left-image">
+            <img src="../../assets/images/ahri.jpg" alt="" style="border-radius: 20px;">
+          </div>
+        </div>
+        <div class="col-lg-5 align-self-center">
+          <h4>{{ game.title }}</h4>
+          <p>{{ game.description }}</p>
+          <div class="row">
+            <div class="col-3">
+              <span class="bid">
+                Game Price<br><strong>{{ game.price }}</strong> DT<br>
+              </span>
+            </div>
+    
+            <div class="col-5">
+              <span class="ends">
+                Starts At<br><strong>{{ game.date ? game.date|date('H:i:s') : '' }}</strong><br>
+              </span>
+            </div>
+          </div>
+            
+          <form action="{{path('app_payment', {'id': game.id})}}" method="post","get">
+            <input type="hidden" name="token"  value="{{csrf_token('myform')}}">
+            <input type="hidden" name="amount"  value="{{game.price}}"DT>
+            <label for="quantity-text">Pay Now:</label>
+            
+            <button type="submit" id="form-submit" class="main-button">Paypal</button>
+          </form>
+        </div>
+        </div></div></div>
                             
 
                            

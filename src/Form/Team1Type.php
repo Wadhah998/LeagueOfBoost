@@ -11,7 +11,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormView;
-
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 class Team1Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -32,6 +33,12 @@ class Team1Type extends AbstractType
                 'class'=>Game::class,
                 'choice_label'=>'title'
             ))
+
+            ->add('captcha', Recaptcha3Type::class, [
+                'constraints' => new Recaptcha3(),
+                'action_name' => 'homepage',
+                'locale' => 'de',
+            ])
             
             ->add("Save",SubmitType::class)
         ;

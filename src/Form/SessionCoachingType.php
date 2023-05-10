@@ -18,7 +18,12 @@ use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+
+
 class SessionCoachingType extends AbstractType
+
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -73,14 +78,16 @@ class SessionCoachingType extends AbstractType
             'action_name' => 'sessionCoaching',
             'locale' => 'de',
         ])
-        ->add('Date');
+        ->add('Date')
            /*->add('User',
             EntityType::class,array(
                 'class'=>User::class,
                 'choice_label'=>'id',
             ))*/
             
-        ;
+        
+        ->add("Save",SubmitType::class);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -1,51 +1,77 @@
 {% extends 'backOffice.html.twig' %}
 
 {% block body %}
-
-    <table class="table">
-        <thead>
-        {{ form_start(ReclamationFilterType) }}
-        {{ form_widget(ReclamationFilterType) }}
-        <button type="submit" class="btn btn-primary">Submit</button>
-        {{ form_end(ReclamationFilterType) }}
-
-        <tr>
-            <th style="color: #FFFFFF">User</th>
-            <th style="color: #FFFFFF">Date</th>
-            <th style="color: #FFFFFF">Theme</th>
-            <th style="color: #FFFFFF">Object</th>
-            <th style="color: #FFFFFF">Status</th>
-            <th style="color: #FFFFFF"></th>
-        </tr>
-        </thead>
+<div class="container-fluid pt-4 px-20">
+    <div class="row g-4">
+        <div class="col-sm-20 col-xl-20">
+            <div class="bg-secondary rounded h-100 p-4">
 
 
-        <tbody>
+                            {{ form_start(ReclamationFilterType, {'attr': {'id': 'contact'}}) }}
+
+                                    <div class="bg-secondary rounded h-100 p-4">
+                                        <h6 class="mb-4">Select Report Theme</h6>
+                                        {{ form_widget(ReclamationFilterType.theme, {'attr': {'class': 'form-select form-select-sm mb-3', 'aria-label': '.form-select-sm example'}}) }}
+                                    </div>
+
+                                    <div class="bg-secondary rounded h-100 p-4">
+                                        <h6 class="mb-4">Select Report State</h6>
+                                        {{ form_widget(ReclamationFilterType.etat, {'attr': {'class': 'form-select form-select-sm mb-3', 'aria-label': '.form-select-sm example'}}) }}
+                                    </div>
+                                    <div class="bg-secondary rounded h-100 p-4">
+                                        
+                                    {{ form_widget(ReclamationFilterType.filter, {'attr': {'class': 'btn btn-outline-light m-2', 'label':'Filter'}}) }}
+                                       
+                                    </div>
+                                  
+                                    {{ form_end(ReclamationFilterType) }}
+                            <br><br>
+                        <table class="table">
+
+                        <thead>
+
+                            <tr>
+                                <th>User</th>
+                                <th>Date</th>
+                                <th>Theme</th>
+                                <th>Object</th>
+                                <th>Status</th>
+                                <th  class="text-danger" scope="col">Show</th>
+                                <th  class="text-danger" scope="col">Delete</th>
+
+                            </tr>
+                        </thead>
 
 
-        {% for reclamation in reclamations %}
+                        <tbody>
 
-            <tr>
-                <td style="color: #FFFFFF">{{ reclamation.user.username }}</td>
-                <td style="color: #FFFFFF">{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</td>
-                <td style="color: #FFFFFF">{{ reclamation.theme }}</td>
-                <td style="color: #FFFFFF">{{ reclamation.object }}</td>
-                <td style="color: #FFFFFF">{{ reclamation.etat ? 'Saved successfully' : 'On hold' }}</td>
-                <td>
-                    <a href="{{ path('app_reclamation_show_a', {'id': reclamation.id}) }}">Show</a>
-                    <form method="post" action="{{ path('app_reclamation_delete2', {'id': reclamation.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete2' ~ reclamation.id) }}">
-                        <button class="btn">Delete</button>
-                    </form>
 
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7" style="color: #d41414">No reclamations found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                        {% for reclamation in reclamations %}
+
+                                <tr>
+                                    <td>{{ reclamation.user.username }}</td>
+                                    <td>{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</td>
+                                    <td>{{ reclamation.theme }}</td>
+                                    <td>{{ reclamation.object }}</td>
+                                    <td>{{ reclamation.etat ? 'Saved successfully' : 'On hold' }}</td>
+                                    <td>
+                                        <a href="{{ path('app_reclamation_show_a', {'id': reclamation.id}) }}">Show</a></td>
+                                    <td>
+                                    <form method="post" action="{{ path('app_reclamation_delete2', {'id': reclamation.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete2' ~ reclamation.id) }}">
+                                        <button class="btn-danger">Delete</button>
+                                    </form>
+
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="7" style="color: #d41414">No reclamations found</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+</div></div></div></div>
 
 {% endblock %}

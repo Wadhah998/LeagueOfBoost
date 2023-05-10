@@ -16,7 +16,6 @@ class CoachType extends AbstractType
             ->add('voie')
             ->add('lienOpgg')
             ->add('description')
-            ->add('solde')
             ->add('prix')
         ;
     }

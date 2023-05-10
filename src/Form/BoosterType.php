@@ -20,7 +20,6 @@ class BoosterType extends AbstractType
             ->add('voie')
             ->add('lienOpgg')
             ->add('description')
-            ->add('solde')
             ->add('prix')
              -> add('disponibility', ChoiceType::class, [
                 'choices' => [

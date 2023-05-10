@@ -1,22 +1,31 @@
 {% extends 'frontOffice.html.twig' %}
 
 {% block body %}
-    <br><br>
-
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th style="color: #FFFFFF">Date</th>
-                <th style="color: #FFFFFF">Theme</th>
-                <th style="color: #FFFFFF">Object</th>
-                <th style="color: #FFFFFF">Status</th>
-                <th style="color: #FFFFFF"></th>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="section-heading">
+                <div class="line-dec"></div>
+                <h2>My <em>Reports</em> </h2>
+                </div>
+            </div>
+            <table class="table" style="color: white;">
+            <div class="col-12">
+                <div class="table-responsive">
+                <table class="table" style="color: white;">
+                <thead>
+                <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Theme</th>
+                <th scope="col">Object</th>
+                <th scope="col">Status</th
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
-
-
 
         {% for reclamation in reclamations %}
             {% if reclamation.etat %}
@@ -33,18 +42,18 @@
                 <td style="color: #FFFFFF">{{ reclamation.theme }}</td>
                 <td style="color: #FFFFFF">{{ reclamation.object }}</td>
                 <td style="color: #FFFFFF">{{ reclamation.etat ? 'Saved successfully' : 'On hold' }}</td>
-                <form>
+                <td>  <form action="{{path('app_reclamation_show', {'id': reclamation.id}) }}" method="post">
 
-                    <td>
-                        <a style="color: #d41414" class="btn" href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}">show&nbsp&nbsp</a>
+                                            <button class="btn">
+                                            <span style="color: white;">Show</span>
+                                            </button>
+                                    </form></td>
+                <td>  <form action="{{path('app_reclamation_edit', {'id': reclamation.id}) }}" method="post">
 
-                        <a style="color: #d41414" class="btn" href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">edit</a>
-                        <form method="post" action="{{ path('app_reclamation_delete', {'id': reclamation.id}) }}" >
-                          <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reclamation.id) }}">
-                             <button style="color: #FFFFFF" class="btn"></button>
-                        </form>
-                    </td>
-                 </form>
+                                            <button class="btn">
+                                            <span style="color: white;">Edit</span>
+                                            </button>
+                                    </form></td>
         {% else %}
             <tr>
                 <td colspan="7">no records found</td>
@@ -54,6 +63,12 @@
 
         </tbody>
     </table>
-
+</div>
+</div>
+                               
+</table>
+                                          
+</div>
+</div>
 
 {% endblock %}

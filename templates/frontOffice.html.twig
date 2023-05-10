@@ -19,10 +19,13 @@
         <link rel="stylesheet" href="{{asset('assets/css/templatemo-liberty-market.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/owl.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/animate.css')}}">
-        <link rel="stylesheet"href="{{asset('https://unpkg.com/swiper@7/swiper-bundle.min.css')}}"/>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/alertifyjs/1.13.1/css/alertify.min.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/alertifyjs/1.13.1/css/themes/default.min.css" />
-        <script src="https://cdn.jsdelivr.net/alertifyjs/1.13.1/alertify.min.js"></script>
+        <link rel="stylesheet" href="{{asset('https://unpkg.com/swiper@7/swiper-bundle.min.css')}}"/>
+        <link rel="stylesheet" href="{{asset('https://cdn.jsdelivr.net/alertifyjs/1.13.1/css/alertify.min.css')}}" />
+        <link rel="stylesheet" href="{{asset('https://cdn.jsdelivr.net/alertifyjs/1.13.1/css/themes/default.min.css')}}" />
+        <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')}}">
+
+
+        <script src="{{asset('https://cdn.jsdelivr.net/alertifyjs/1.13.1/alertify.min.js')}}"></script>
 
     {% endblock %}
     <!--
@@ -71,6 +74,7 @@
 
 
                         <li><a href="{{path('app_game_index')}}">League Of Games</a></li>
+                        
                         {% if app.user %}
                             {% if is_granted('ROLE_ADMIN') %}
                               <li><a href="{{ path('app_game_admin') }}">Dashbord</a></li>
@@ -143,7 +147,6 @@
     <script src="../../assets/js/tabs.js"></script>
     <script src="../../assets/js/popup.js"></script>
     <script src="../../assets/js/custom.js"></script>
-
 
 {% endblock %}
 </body>
