@@ -75,7 +75,7 @@ class CommentaireController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$commentaire->getId(), $request->request->get('_token'))) {
             $commentaireRepository->remove($commentaire, true);
         }
-        
+
         return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
     }
 }

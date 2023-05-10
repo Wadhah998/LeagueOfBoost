@@ -1,0 +1,49 @@
+{% extends 'frontOffice.html.twig' %}
+
+{% block body %}
+    <h1>SessionCoaching</h1>
+
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th style="color: white;">Id</th>
+                <td style="color: white;">{{ session_coaching.id }}</td>
+            </tr>
+            <tr>
+                <th style="color: white;">Titre</th>
+                <td style="color: white;">{{ session_coaching.Titre }}</td>
+            </tr>
+            <tr>
+                <th style="color: white;">Description</th>
+                <td style="color: white;">{{ session_coaching.Description }}</td>
+            </tr>
+            <tr>
+                <th style="color: white;">Prix</th>
+                <td style="color: white;">{{ session_coaching.Prix }}</td>
+            </tr>
+            <tr>
+                <th style="color: white;">Date</th>
+                <td style="color: white;">{{ session_coaching.Date ? session_coaching.Date|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+
+            </tr>
+        </tbody>
+    </table>
+                <th>  <form action="{{path('app_payment', {'id': session_coaching.id})}}" method="post">
+            
+                                            <input type="hidden" name="token"  value="{{csrf_token('myform')}}">
+
+                                            <input type="hidden" name="amount"  value="{{session_coaching.prix}}">
+
+                                            <button class="btn">
+                                            <span style="color: white;">Pay with paypal</span>
+                                            </button>
+                                    </form></th>
+
+    <a href="{{ path('app_user_show_dashboard', {'id': app.user.id}) }}" class="btn btn-primary btn-lg "> back to list </a>
+    <a href="{{ path('app_session_coaching_edit', {'id': app.user.id}) }}" class="btn btn-warning btn-lg "> edit</a>
+
+    {{ include('session_coaching/_delete_form.html.twig') }}
+{% endblock %}
