@@ -66,10 +66,20 @@
 {% endif %}
 
 {{ form_start(messageForm) }}
-{{ form_row(messageForm.message) }}
-{{ form_widget(messageForm) }}
-<button type="submit" class="btn btn-primary">Submit</button>
-{{ form_end(messageForm) }}
+    {{ form_row(messageForm.message) }}
+    {{ form_widget(messageForm) }}
+    <br>
+<button class="btn" style="background-color: #7453fc; color: #ffffff;">{{ button_label|default('Save') }}</button>
+    {{ form_end(messageForm) }}
+    <style>
+        .message-input {
+            background-color: #24242e;
+            color: white;
+            border: 2px solid #7453fc;
+            border-radius: 10px;
+            padding: 3px;
+        }
+    </style>
 <br>
 <br>
 </div>
@@ -86,6 +96,8 @@
 
 {{ form_start(form) }}
 {{ form_widget(form) }}
+<br>
+
 {{ form_end(form) }}
 {% endif %}
 </div>
