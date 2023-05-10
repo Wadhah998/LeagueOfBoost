@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Payment;
 
+
 use App\Entity\Game;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Omnipay\Omnipay;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,7 +41,9 @@ class OperationController extends AbstractController
     #[Route('/cart', name: 'app_cart')]
     public function cart(): Response
     {
+
         return $this->render('game/details.html.twig');
+
     }
 
 
@@ -141,7 +145,9 @@ public function payment(Request $request): Response
         return $this->render('Operation/success.html.twig',
               [
 
+
                 'message'=>'l\'utilisateur a annulé son paiement'
+
 
               ]
               );

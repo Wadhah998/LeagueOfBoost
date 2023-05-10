@@ -15,9 +15,11 @@ return [
 
 
 
+
     
 
     Karser\Recaptcha3Bundle\KarserRecaptcha3Bundle::class => ['all' => true],
+
 
 
 ];

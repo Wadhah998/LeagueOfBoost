@@ -56,6 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $prix = null;
 
+
     #[ORM\Column(nullable: true)]
     private ?bool $disponibility = null;
 
@@ -79,6 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->ratings = new ArrayCollection();
 
     }
+
 
 
 
@@ -275,6 +277,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
     public function isDisponibility(): ?bool
     {
         return $this->disponibility;
@@ -317,10 +320,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$this->sessionBoostings->contains($sessionBoosting)) {
             $this->sessionBoostings->add($sessionBoosting);
             $sessionBoosting->setUser($this);
+
         }
 
         return $this;
     }
+
 
     public function removeSessionBoosting(SessionBoosting $sessionBoosting): self
     {
@@ -328,6 +333,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($sessionBoosting->getUser() === $this) {
                 $sessionBoosting->setUser(null);
+
             }
         }
 
@@ -335,6 +341,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+
      * @return Collection<int, ReservationBooster>
      */
     public function getReservationBoosters(): Collection
@@ -347,10 +354,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$this->reservationBoosters->contains($reservationBooster)) {
             $this->reservationBoosters->add($reservationBooster);
             $reservationBooster->setUser($this);
+
         }
 
         return $this;
     }
+
 
     public function removeReservationBooster(ReservationBooster $reservationBooster): self
     {
@@ -358,11 +367,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($reservationBooster->getUser() === $this) {
                 $reservationBooster->setUser(null);
+
             }
         }
 
         return $this;
     }
+
 
 
     /**
@@ -394,6 +405,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 
 
 

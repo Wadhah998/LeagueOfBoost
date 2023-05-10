@@ -1,0 +1,44 @@
+{% extends 'frontOffice.html.twig' %}
+
+{% block body %}
+<h1>Les Sessions existantes :</h1>
+    <br>
+
+          <a href="{{ path('app_user_listecoach')}}" class="btn btn-primary btn-lg ">Nos Coachs</a>
+
+    <a href="{{ path('app_user_listesession')}}" class="btn btn-warning btn-lg ">Nos Sessions Coaching</a>
+          {{ form_start(form) }}
+    {{ form_widget(form) }}
+{{ form_end(form) }}
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="color: white;">Id</th>
+                <th style="color: white;">Titre</th>
+                <th style="color: white;">Description</th>
+                <th style="color: white;">Prix</th>
+                <th style="color: white;">Date</th>
+                <th style="color: white;">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for session_coaching in session_coachings %}
+            <tr>
+                <td style="color: white;">{{ session_coaching.id }}</td>
+                <td style="color: white;">{{ session_coaching.Titre }}</td>
+                <td style="color: white;">{{ session_coaching.Description }}</td>
+                <td style="color: white;">{{ session_coaching.Prix }}</td>
+                <td style="color: white;">{{ session_coaching.Date ? session_coaching.Date|date('Y-m-d') : '' }}</td>
+                <td>
+                                                <a href="{{ path('app_session_coaching_show', {'id': session_coaching.id}) }}" class="btn btn-primary"> show </a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td style="color: white;" colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

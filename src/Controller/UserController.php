@@ -9,7 +9,9 @@ use App\Form\RegistrationFormType;
 use App\Form\UserType;
 use App\Repository\CoachRepository;
 use App\Repository\ReservationBoosterRepository;
+use App\Repository\ReservationCRepository;
 use App\Repository\SessionBoostingRepository;
+use App\Repository\SessionCoachingRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -119,7 +121,7 @@ class UserController extends AbstractController
     }
 
 
-    #[Route('/coach/dashboard/{id}', name: 'app_user_show_dashboard', methods: ['GET'])]
+    #[Route('/coach/dashboard/{id}', name: 'app_user_show_dashboardC', methods: ['GET'])]
     public function showDashboardC(User $user,SessionCoachingRepository $sessionCoachingRepository,ReservationCRepository $reservationCRepository): Response
     {
         return $this->render('user/coachdashboard.html.twig', [

@@ -59,6 +59,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         $queryBuilder = $this->createQueryBuilder('u');
 
+
         if ($prixmax !== null) {
             $queryBuilder
                 ->andWhere('u.prix <= :prixmax')

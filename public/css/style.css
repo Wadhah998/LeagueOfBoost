@@ -287,3 +287,6 @@
     background: var(--dark);
     border-color: var(--primary);
 }
+.centered-text {
+    text-align: center;
+  }
