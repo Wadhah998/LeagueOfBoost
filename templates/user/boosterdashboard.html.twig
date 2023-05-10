@@ -1,73 +1,61 @@
 {% extends 'frontOffice.html.twig' %}
 
 {% block body %}
-    <div class="currently-market">
-        <div class="container">
-            <div class="col-lg-12">
 
+         <div class="col-lg-12 text-center">
+  <div class="section-heading">
+    <div class="line-dec"></div>
+    <h2>Welcome To Your Dashboard</h2>
+  </div>
+</div>
 
-                    <h2 <span style="text-align: center; color: purple;">Welcome </span> <span style="color: white;"> to your dashboard </span>
-                    </h2>
-                
-            </div>
-            <div class="col-lg-12">
-                    <h2 <span style="text-align: right; color: purple;">Solde : </span> <span style="color: white;"> {{ app.user.Solde }} dt</span></h2>
-                
-            </div>
-                <div class="col-lg-7" style="display: flex;">
-                    <div class="left-image">
-                        <br>
-
-                        <br>
-                        <br>
-
-                        <img src="../../../assets/images/market-01.jpg" alt="" style="border-radius: 200px; width: 200px;">
-                    </div>
-                    <div class="col-lg-1">
-                    </div>
-                    <div class="col-lg-9">
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <h2><span style="color: purple;"> Booster </span> {{ app.user.username }} <h2>
-                        <br>
-                        <h4> <span style="color: purple;">Description : </span>{{ app.user.Description }}</h4>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <h4> <span style="color: purple;">Prix : </span>{{ app.user.Prix }} dt</h4>
-                    </div>
-                    <div class="col-lg-2">
-                    </div>
-                    <div class="col-lg-2">
-                    </div>
-                    <div class="col-lg-4">
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                        <a href="{{ path('app_session_boosting_new', {'id': app.user.id}) }}" class="btn btn-primary btn-lg "> Create new Session </a>
-                    </div>
-
-                </div>
-            </div>
-            
+ <div class="author-page">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="author">
+            <img src="../../assets/images/single-author.jpg" alt="" style="border-radius: 50%; max-width: 170px;">
+            <h4>Booster <br> <a href="#">@{{ app.user.username }}</a></h4>
+          </div>
         </div>
-          <h1>Vos Session</h1>
+
+        <div class="col-lg-6" style="width:600px; height: 70px;">
+          <div class="right-info">
+            <div class="row">
+              <div class="col-4">
+                <div class="info-item">
+                  <i class="fa fa-dollar"></i><h5>Price</h5>
+                  <h6>{{ app.user.Prix }} <em> DT</em></h6>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="info-item">
+                  <i class="fa fa-dollar"></i><h5>Wallet</h5>
+                  <h6>{{ app.user.Solde }} <em> DT</em></h6>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-7">
+                <div class="main-button">
+                    <a href="{{ path('app_session_boosting_new', {'id': app.user.id}) }}" class="btn btn-primary btn-lg "> Create new Session </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div class="col-lg-12 text-center">
+  <div class="section-heading">
+    <div class="line-dec"></div>
+    <h2>Your Sessions</h2>
+  </div>
+</div>
+    <div class="container">
 
     <table class="table">
         <thead>
@@ -103,7 +91,17 @@
         {% endfor %}
         </tbody>
     </table>
-      <h1>Vos Reservation</h1>
+</div>
+         <br><br>
+
+<div class="col-lg-12 text-center">
+  <div class="section-heading">
+    <div class="line-dec"></div>
+    <h2>Your Bookings</h2>
+  </div>
+</div>
+
+<div class="container">
 
     <table class="table">
         <thead>
@@ -137,4 +135,5 @@
         {% endfor %}
         </tbody>
     </table>
+</div>
         {% endblock %}

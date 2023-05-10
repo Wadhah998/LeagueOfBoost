@@ -1,5 +1,49 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-   <br>
-    <button class="btn btn-warning btn-lg" class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="item-details-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-heading">
+          <div class="line-dec"></div>
+          <h2>New <em>Boositng</em> Session.</h2>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        {{ form_start(form, {'attr': {'id': 'contact'}}) }}
+        <div class="row">
+          <div class="col-lg-4">
+            <fieldset>
+              {{ form_label(form.Titre) }}
+              {{ form_widget(form.Titre, {'attr': {'placeholder': 'Ex. Team Wadhah'}}) }}
+            </fieldset>
+          </div>
+          <div class="col-lg-4">
+            <fieldset>
+              {{ form_label(form.Description) }}
+              {{ form_widget(form.Description, {'attr': {'placeholder': 'Give us your idea'}}) }}
+            </fieldset>
+          </div>
+          <div class="col-lg-4">
+            <fieldset>
+              {{ form_label(form.Nbr_heure) }}
+              {{ form_widget(form.Nbr_heure) }}
+            </fieldset>
+          </div>
+          <div class="col-lg-4">
+            <fieldset>
+              {{ form_label(form.Prix) }}
+              {{ form_widget(form.Prix) }}
+            </fieldset>
+          </div>
+          
+          <div class="col-lg-8">
+            <fieldset>
+              {{ form_widget(form.Save, {'attr': {'class': 'orange-button', 'label':'Save'}}) }}
+            </fieldset>
+          </div>
+        </div>
+        {{ form_end(form) }}
+      </div>
+    </div>
+  </div>
+</div>
+
