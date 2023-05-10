@@ -39,12 +39,12 @@ class ActualiteRepository extends ServiceEntityRepository
         }
     }
     public function findActualitesOrderByLikes()
-    {
-        return $this->createQueryBuilder('a')
-            ->orderBy('a.Likes', 'DESC')
-            ->getQuery()
-            ->getResult();
-    }
+{
+    return $this->createQueryBuilder('a')
+        ->orderBy('a.Likes', 'DESC')
+        ->getQuery()
+        ->getResult();
+}
 
 //    /**
 //     * @return Actualite[] Returns an array of Actualite objects

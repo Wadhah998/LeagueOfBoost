@@ -16,17 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/home')]
 class ActualiteController extends AbstractController
 {
-    #[Route('/', name: 'app_actualite_index', methods: ['GET'])]
-    public function index(ActualiteRepository $actualiteRepository ): Response
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        ;       $entityManager->flush();
 
-        return $this->render('actualite/index.html.twig', [
-            'actualites' => $entityManager->getRepository(Actualite::class)->findActualitesOrderByLikes(),
-
-        ]);
-    }
 
     #[Route('/new', name: 'app_actualite_new', methods: ['GET', 'POST'])]
     public function newnew(Request $request, ActualiteRepository $actualiteRepository): Response
@@ -108,7 +98,7 @@ class ActualiteController extends AbstractController
 
 
     #[Route('/{id}/edit', name: 'app_actualite_edit', methods: ['GET', 'POST'])]
-    function edit(Request $request, Actualite $actualite, ActualiteRepository $actualiteRepository): Response
+     function edit(Request $request, Actualite $actualite, ActualiteRepository $actualiteRepository): Response
     {
         $form = $this->createForm(ActualiteType::class, $actualite);
         $form->handleRequest($request);
@@ -133,17 +123,17 @@ class ActualiteController extends AbstractController
 
         return $this->redirectToRoute('app_actualite_index', [], Response::HTTP_SEE_OTHER);
     }
-    /*   #[Route('/liste', name:'app_actualite_liste', methods: ['GET'])]
-       public function liste(ActualiteRepository $actualiteRepository): Response
-       {
+ /*   #[Route('/liste', name:'app_actualite_liste', methods: ['GET'])]
+    public function liste(ActualiteRepository $actualiteRepository): Response
+    {
 
-           return $this->render('actualite/liste.html.twig', [
-               'actualites' => $actualiteRepository->findAll(),
-           ]);
-       }*/
+        return $this->render('actualite/liste.html.twig', [
+            'actualites' => $actualiteRepository->findAll(),
+        ]);
+    }*/
 
     #[Route('/admin', name:'app_actualite_admin', methods: ['GET'])]
-    function admin(ActualiteRepository $actualiteRepository): Response
+     function admin(ActualiteRepository $actualiteRepository): Response
     {
 
         return $this->render('actualite/admin.html.twig', [
