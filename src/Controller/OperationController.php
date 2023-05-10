@@ -352,7 +352,7 @@ public function payment3(Request $request): Response
 
             $this->manager->flush();
             
-            return $this->render('Operation/success.html.twig',
+            return $this->render('Operation/success3.html.twig',
               [
                 'message'=>'Votre paiement a été un succès, voici l\'id de votre transaction:' .$data['id']
               ]
@@ -361,7 +361,7 @@ public function payment3(Request $request): Response
 
          else
          {
-            return $this->render('Operation/success.html.twig',
+            return $this->render('Operation/success3.html.twig',
               [
                 'message'=>'Le paiement a échoué !'
               ]
@@ -372,7 +372,7 @@ public function payment3(Request $request): Response
 
        else
        {
-        return $this->render('Operation/success.html.twig',
+        return $this->render('Operation/success3.html.twig',
               [
 
                 'message'=>'l\'utilisateur a annulé son paiement'

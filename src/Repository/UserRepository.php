@@ -55,7 +55,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         $this->save($user, true);
     }
-    public function filterByPrice($prixmax, $rang, $voie,$prixmin)
+    public function filterByPrice($prixmax, $voie,$prixmin)
     {
         $queryBuilder = $this->createQueryBuilder('u');
 
@@ -70,11 +70,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 ->andWhere('u.prix >= :prixmin')
                 ->setParameter('prixmin', $prixmin);
         }
-        if ($rang !== null) {
-            $queryBuilder
-                ->andWhere('u.rang = :rang')
-                ->setParameter('rang', $rang);
-        }
+        
         if ($voie !== null) {
             $queryBuilder
                 ->andWhere('u.voie = :voie')
